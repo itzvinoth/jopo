@@ -15,7 +15,8 @@ var config = {
         include: DEV,
         loader: "babel-loader",
     }]
-  }
+  },
+  watch: true
 };
  
 module.exports = config;
