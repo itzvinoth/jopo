@@ -27899,13 +27899,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _css = __webpack_require__(280);
+var _css = __webpack_require__(369);
+
+var _button = __webpack_require__(372);
+
+var _button2 = _interopRequireDefault(_button);
+
+var _css2 = __webpack_require__(280);
 
 var _card = __webpack_require__(286);
 
 var _card2 = _interopRequireDefault(_card);
 
-var _css2 = __webpack_require__(353);
+var _css3 = __webpack_require__(353);
 
 var _radio = __webpack_require__(356);
 
@@ -27940,10 +27946,11 @@ var Cards = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Cards.__proto__ || Object.getPrototypeOf(Cards)).call(this, props));
 
     _this.state = {
-      cards: ["card1", "card2", "card3", "card4", "card5", "card6", "card7", "card8", "card9"],
-      value: 1
+      cards: ["card1", "card2", "card3", "card4", "card5"],
+      value: 1,
+      size: 'large'
     };
-
+    _this.state.duplicateCards = _this.state.cards;
     _this.createListItems = _this.createListItems.bind(_this);
     _this.handleOnScroll = _this.handleOnScroll.bind(_this);
     _this.onChange = _this.onChange.bind(_this);
@@ -27971,8 +27978,12 @@ var Cards = function (_React$Component) {
   }, {
     key: 'onChange',
     value: function onChange(e) {
+      console.log(this.state.duplicateCards);
       this.setState({
-        value: e.target.value
+        value: e.target.value,
+        cards: this.state.duplicateCards.filter(function (card, idx) {
+          return parseInt(idx + 1) % e.target.value == 0;
+        })
       });
     }
   }, {
@@ -27985,14 +27996,20 @@ var Cards = function (_React$Component) {
       var windowBottom = windowHeight + window.pageYOffset;
       if (windowBottom >= docHeight) {
         this.newCardCreator();
-        this.setState({ cards: this.state.cards.concat(this.newCard) });
+        this.setState({
+          cards: this.state.cards.concat(this.newCard),
+          duplicateCards: this.state.cards
+        });
       }
     }
   }, {
     key: 'createListItems',
     value: function createListItems() {
       this.newCardCreator();
-      this.setState({ cards: this.state.cards.concat(this.newCard) });
+      this.setState({
+        cards: this.state.cards.concat(this.newCard),
+        duplicateCards: this.state.cards
+      });
     }
   }, {
     key: 'render',
@@ -28001,32 +28018,32 @@ var Cards = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          'button',
-          { onClick: this.createListItems },
-          ' Add '
-        ),
-        _react2.default.createElement(
           RadioGroup,
           { onChange: this.onChange, value: this.state.value },
           _react2.default.createElement(
             _radio2.default,
             { value: 1 },
-            'A'
+            'Filter 1'
           ),
           _react2.default.createElement(
             _radio2.default,
             { value: 2 },
-            'B'
+            'Filter 2'
           ),
           _react2.default.createElement(
             _radio2.default,
             { value: 3 },
-            'C'
+            'Filter 3'
           ),
           _react2.default.createElement(
             _radio2.default,
-            { value: 4 },
-            'D'
+            { value: 5 },
+            'Filter 5'
+          ),
+          _react2.default.createElement(
+            _radio2.default,
+            { value: 10 },
+            'Filter 10'
           )
         ),
         this.state.cards.map(function (card, id) {
@@ -28047,7 +28064,12 @@ var Cards = function (_React$Component) {
               )
             )
           );
-        })
+        }),
+        _react2.default.createElement(
+          _button2.default,
+          { type: 'primary', size: this.state.size, onClick: this.createListItems },
+          ' Add '
+        )
       );
     }
   }]);
@@ -32038,6 +32060,440 @@ RadioButton.defaultProps = {
 RadioButton.contextTypes = {
     radioGroup: _propTypes2['default'].any
 };
+module.exports = exports['default'];
+
+/***/ }),
+/* 368 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+
+function omit(obj, fields) {
+  var shallowCopy = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, obj);
+  for (var i = 0; i < fields.length; i++) {
+    var key = fields[i];
+    delete shallowCopy[key];
+  }
+  return shallowCopy;
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (omit);
+
+/***/ }),
+/* 369 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(281);
+
+__webpack_require__(370);
+
+/***/ }),
+/* 370 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(371);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(81)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../../../css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../../../../css-loader/index.js!./index.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 371 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */\n/* stylelint-disable declaration-bang-space-before */\n/* stylelint-disable declaration-bang-space-before */\n.ant-btn {\n  display: inline-block;\n  margin-bottom: 0;\n  font-weight: 500;\n  text-align: center;\n  -ms-touch-action: manipulation;\n      touch-action: manipulation;\n  cursor: pointer;\n  background-image: none;\n  border: 1px solid transparent;\n  white-space: nowrap;\n  line-height: 1.15;\n  padding: 0 15px;\n  font-size: 12px;\n  border-radius: 4px;\n  height: 28px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n  position: relative;\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n}\n.ant-btn > .anticon {\n  line-height: 1;\n}\n.ant-btn,\n.ant-btn:active,\n.ant-btn:focus {\n  outline: 0;\n}\n.ant-btn:not([disabled]):hover {\n  text-decoration: none;\n}\n.ant-btn:not([disabled]):active {\n  outline: 0;\n  transition: none;\n}\n.ant-btn.disabled,\n.ant-btn[disabled] {\n  cursor: not-allowed;\n}\n.ant-btn.disabled > *,\n.ant-btn[disabled] > * {\n  pointer-events: none;\n}\n.ant-btn-lg {\n  padding: 0 15px;\n  font-size: 14px;\n  border-radius: 4px;\n  height: 32px;\n}\n.ant-btn-sm {\n  padding: 0 7px;\n  font-size: 12px;\n  border-radius: 4px;\n  height: 22px;\n}\n.ant-btn > a:only-child {\n  color: currentColor;\n}\n.ant-btn > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn:hover,\n.ant-btn:focus {\n  color: #108ee9;\n  background-color: #fff;\n  border-color: #108ee9;\n}\n.ant-btn:hover > a:only-child,\n.ant-btn:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn:hover > a:only-child:after,\n.ant-btn:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn:active,\n.ant-btn.active {\n  color: #0e77ca;\n  background-color: #fff;\n  border-color: #0e77ca;\n}\n.ant-btn:active > a:only-child,\n.ant-btn.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn:active > a:only-child:after,\n.ant-btn.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn.disabled,\n.ant-btn[disabled],\n.ant-btn.disabled:hover,\n.ant-btn[disabled]:hover,\n.ant-btn.disabled:focus,\n.ant-btn[disabled]:focus,\n.ant-btn.disabled:active,\n.ant-btn[disabled]:active,\n.ant-btn.disabled.active,\n.ant-btn[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn.disabled > a:only-child,\n.ant-btn[disabled] > a:only-child,\n.ant-btn.disabled:hover > a:only-child,\n.ant-btn[disabled]:hover > a:only-child,\n.ant-btn.disabled:focus > a:only-child,\n.ant-btn[disabled]:focus > a:only-child,\n.ant-btn.disabled:active > a:only-child,\n.ant-btn[disabled]:active > a:only-child,\n.ant-btn.disabled.active > a:only-child,\n.ant-btn[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn.disabled > a:only-child:after,\n.ant-btn[disabled] > a:only-child:after,\n.ant-btn.disabled:hover > a:only-child:after,\n.ant-btn[disabled]:hover > a:only-child:after,\n.ant-btn.disabled:focus > a:only-child:after,\n.ant-btn[disabled]:focus > a:only-child:after,\n.ant-btn.disabled:active > a:only-child:after,\n.ant-btn[disabled]:active > a:only-child:after,\n.ant-btn.disabled.active > a:only-child:after,\n.ant-btn[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn:hover,\n.ant-btn:focus,\n.ant-btn:active,\n.ant-btn.active {\n  background: #fff;\n}\n.ant-btn > i,\n.ant-btn > span {\n  pointer-events: none;\n}\n.ant-btn-primary {\n  color: #fff;\n  background-color: #108ee9;\n  border-color: #108ee9;\n}\n.ant-btn-primary > a:only-child {\n  color: currentColor;\n}\n.ant-btn-primary > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-primary:hover,\n.ant-btn-primary:focus {\n  color: #fff;\n  background-color: #49a9ee;\n  border-color: #49a9ee;\n}\n.ant-btn-primary:hover > a:only-child,\n.ant-btn-primary:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-primary:hover > a:only-child:after,\n.ant-btn-primary:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-primary:active,\n.ant-btn-primary.active {\n  color: #fff;\n  background-color: #0e77ca;\n  border-color: #0e77ca;\n}\n.ant-btn-primary:active > a:only-child,\n.ant-btn-primary.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-primary:active > a:only-child:after,\n.ant-btn-primary.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-primary.disabled,\n.ant-btn-primary[disabled],\n.ant-btn-primary.disabled:hover,\n.ant-btn-primary[disabled]:hover,\n.ant-btn-primary.disabled:focus,\n.ant-btn-primary[disabled]:focus,\n.ant-btn-primary.disabled:active,\n.ant-btn-primary[disabled]:active,\n.ant-btn-primary.disabled.active,\n.ant-btn-primary[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-primary.disabled > a:only-child,\n.ant-btn-primary[disabled] > a:only-child,\n.ant-btn-primary.disabled:hover > a:only-child,\n.ant-btn-primary[disabled]:hover > a:only-child,\n.ant-btn-primary.disabled:focus > a:only-child,\n.ant-btn-primary[disabled]:focus > a:only-child,\n.ant-btn-primary.disabled:active > a:only-child,\n.ant-btn-primary[disabled]:active > a:only-child,\n.ant-btn-primary.disabled.active > a:only-child,\n.ant-btn-primary[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-primary.disabled > a:only-child:after,\n.ant-btn-primary[disabled] > a:only-child:after,\n.ant-btn-primary.disabled:hover > a:only-child:after,\n.ant-btn-primary[disabled]:hover > a:only-child:after,\n.ant-btn-primary.disabled:focus > a:only-child:after,\n.ant-btn-primary[disabled]:focus > a:only-child:after,\n.ant-btn-primary.disabled:active > a:only-child:after,\n.ant-btn-primary[disabled]:active > a:only-child:after,\n.ant-btn-primary.disabled.active > a:only-child:after,\n.ant-btn-primary[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child) {\n  border-right-color: #0e77ca;\n  border-left-color: #0e77ca;\n}\n.ant-btn-group .ant-btn-primary:not(:first-child):not(:last-child):disabled {\n  border-color: #d9d9d9;\n}\n.ant-btn-group .ant-btn-primary:first-child:not(:last-child) {\n  border-right-color: #0e77ca;\n}\n.ant-btn-group .ant-btn-primary:first-child:not(:last-child)[disabled] {\n  border-right-color: #d9d9d9;\n}\n.ant-btn-group .ant-btn-primary:last-child:not(:first-child),\n.ant-btn-group .ant-btn-primary + .ant-btn-primary {\n  border-left-color: #0e77ca;\n}\n.ant-btn-group .ant-btn-primary:last-child:not(:first-child)[disabled],\n.ant-btn-group .ant-btn-primary + .ant-btn-primary[disabled] {\n  border-left-color: #d9d9d9;\n}\n.ant-btn-ghost {\n  color: rgba(0, 0, 0, 0.65);\n  background-color: transparent;\n  border-color: #d9d9d9;\n}\n.ant-btn-ghost > a:only-child {\n  color: currentColor;\n}\n.ant-btn-ghost > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-ghost:hover,\n.ant-btn-ghost:focus {\n  color: #108ee9;\n  background-color: transparent;\n  border-color: #108ee9;\n}\n.ant-btn-ghost:hover > a:only-child,\n.ant-btn-ghost:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-ghost:hover > a:only-child:after,\n.ant-btn-ghost:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-ghost:active,\n.ant-btn-ghost.active {\n  color: #0e77ca;\n  background-color: transparent;\n  border-color: #0e77ca;\n}\n.ant-btn-ghost:active > a:only-child,\n.ant-btn-ghost.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-ghost:active > a:only-child:after,\n.ant-btn-ghost.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-ghost.disabled,\n.ant-btn-ghost[disabled],\n.ant-btn-ghost.disabled:hover,\n.ant-btn-ghost[disabled]:hover,\n.ant-btn-ghost.disabled:focus,\n.ant-btn-ghost[disabled]:focus,\n.ant-btn-ghost.disabled:active,\n.ant-btn-ghost[disabled]:active,\n.ant-btn-ghost.disabled.active,\n.ant-btn-ghost[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-ghost.disabled > a:only-child,\n.ant-btn-ghost[disabled] > a:only-child,\n.ant-btn-ghost.disabled:hover > a:only-child,\n.ant-btn-ghost[disabled]:hover > a:only-child,\n.ant-btn-ghost.disabled:focus > a:only-child,\n.ant-btn-ghost[disabled]:focus > a:only-child,\n.ant-btn-ghost.disabled:active > a:only-child,\n.ant-btn-ghost[disabled]:active > a:only-child,\n.ant-btn-ghost.disabled.active > a:only-child,\n.ant-btn-ghost[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-ghost.disabled > a:only-child:after,\n.ant-btn-ghost[disabled] > a:only-child:after,\n.ant-btn-ghost.disabled:hover > a:only-child:after,\n.ant-btn-ghost[disabled]:hover > a:only-child:after,\n.ant-btn-ghost.disabled:focus > a:only-child:after,\n.ant-btn-ghost[disabled]:focus > a:only-child:after,\n.ant-btn-ghost.disabled:active > a:only-child:after,\n.ant-btn-ghost[disabled]:active > a:only-child:after,\n.ant-btn-ghost.disabled.active > a:only-child:after,\n.ant-btn-ghost[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-dashed {\n  color: rgba(0, 0, 0, 0.65);\n  background-color: #fff;\n  border-color: #d9d9d9;\n  border-style: dashed;\n}\n.ant-btn-dashed > a:only-child {\n  color: currentColor;\n}\n.ant-btn-dashed > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-dashed:hover,\n.ant-btn-dashed:focus {\n  color: #108ee9;\n  background-color: #fff;\n  border-color: #108ee9;\n}\n.ant-btn-dashed:hover > a:only-child,\n.ant-btn-dashed:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-dashed:hover > a:only-child:after,\n.ant-btn-dashed:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-dashed:active,\n.ant-btn-dashed.active {\n  color: #0e77ca;\n  background-color: #fff;\n  border-color: #0e77ca;\n}\n.ant-btn-dashed:active > a:only-child,\n.ant-btn-dashed.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-dashed:active > a:only-child:after,\n.ant-btn-dashed.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-dashed.disabled,\n.ant-btn-dashed[disabled],\n.ant-btn-dashed.disabled:hover,\n.ant-btn-dashed[disabled]:hover,\n.ant-btn-dashed.disabled:focus,\n.ant-btn-dashed[disabled]:focus,\n.ant-btn-dashed.disabled:active,\n.ant-btn-dashed[disabled]:active,\n.ant-btn-dashed.disabled.active,\n.ant-btn-dashed[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-dashed.disabled > a:only-child,\n.ant-btn-dashed[disabled] > a:only-child,\n.ant-btn-dashed.disabled:hover > a:only-child,\n.ant-btn-dashed[disabled]:hover > a:only-child,\n.ant-btn-dashed.disabled:focus > a:only-child,\n.ant-btn-dashed[disabled]:focus > a:only-child,\n.ant-btn-dashed.disabled:active > a:only-child,\n.ant-btn-dashed[disabled]:active > a:only-child,\n.ant-btn-dashed.disabled.active > a:only-child,\n.ant-btn-dashed[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-dashed.disabled > a:only-child:after,\n.ant-btn-dashed[disabled] > a:only-child:after,\n.ant-btn-dashed.disabled:hover > a:only-child:after,\n.ant-btn-dashed[disabled]:hover > a:only-child:after,\n.ant-btn-dashed.disabled:focus > a:only-child:after,\n.ant-btn-dashed[disabled]:focus > a:only-child:after,\n.ant-btn-dashed.disabled:active > a:only-child:after,\n.ant-btn-dashed[disabled]:active > a:only-child:after,\n.ant-btn-dashed.disabled.active > a:only-child:after,\n.ant-btn-dashed[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-danger {\n  color: #f04134;\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-danger > a:only-child {\n  color: currentColor;\n}\n.ant-btn-danger > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-danger:hover,\n.ant-btn-danger:focus {\n  color: #fff;\n  background-color: #f04134;\n  border-color: #f04134;\n}\n.ant-btn-danger:hover > a:only-child,\n.ant-btn-danger:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-danger:hover > a:only-child:after,\n.ant-btn-danger:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-danger:active,\n.ant-btn-danger.active {\n  color: #fff;\n  background-color: #d73435;\n  border-color: #d73435;\n}\n.ant-btn-danger:active > a:only-child,\n.ant-btn-danger.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-danger:active > a:only-child:after,\n.ant-btn-danger.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-danger.disabled,\n.ant-btn-danger[disabled],\n.ant-btn-danger.disabled:hover,\n.ant-btn-danger[disabled]:hover,\n.ant-btn-danger.disabled:focus,\n.ant-btn-danger[disabled]:focus,\n.ant-btn-danger.disabled:active,\n.ant-btn-danger[disabled]:active,\n.ant-btn-danger.disabled.active,\n.ant-btn-danger[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-danger.disabled > a:only-child,\n.ant-btn-danger[disabled] > a:only-child,\n.ant-btn-danger.disabled:hover > a:only-child,\n.ant-btn-danger[disabled]:hover > a:only-child,\n.ant-btn-danger.disabled:focus > a:only-child,\n.ant-btn-danger[disabled]:focus > a:only-child,\n.ant-btn-danger.disabled:active > a:only-child,\n.ant-btn-danger[disabled]:active > a:only-child,\n.ant-btn-danger.disabled.active > a:only-child,\n.ant-btn-danger[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-danger.disabled > a:only-child:after,\n.ant-btn-danger[disabled] > a:only-child:after,\n.ant-btn-danger.disabled:hover > a:only-child:after,\n.ant-btn-danger[disabled]:hover > a:only-child:after,\n.ant-btn-danger.disabled:focus > a:only-child:after,\n.ant-btn-danger[disabled]:focus > a:only-child:after,\n.ant-btn-danger.disabled:active > a:only-child:after,\n.ant-btn-danger[disabled]:active > a:only-child:after,\n.ant-btn-danger.disabled.active > a:only-child:after,\n.ant-btn-danger[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-circle,\n.ant-btn-circle-outline {\n  width: 28px;\n  padding: 0;\n  font-size: 14px;\n  border-radius: 50%;\n  height: 28px;\n}\n.ant-btn-circle.ant-btn-lg,\n.ant-btn-circle-outline.ant-btn-lg {\n  width: 32px;\n  padding: 0;\n  font-size: 16px;\n  border-radius: 50%;\n  height: 32px;\n}\n.ant-btn-circle.ant-btn-sm,\n.ant-btn-circle-outline.ant-btn-sm {\n  width: 22px;\n  padding: 0;\n  font-size: 12px;\n  border-radius: 50%;\n  height: 22px;\n}\n.ant-btn:before {\n  position: absolute;\n  top: -1px;\n  left: -1px;\n  bottom: -1px;\n  right: -1px;\n  background: #fff;\n  opacity: 0.35;\n  content: '';\n  border-radius: inherit;\n  z-index: 1;\n  transition: opacity .2s;\n  pointer-events: none;\n  display: none;\n}\n.ant-btn .anticon {\n  transition: margin-left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);\n}\n.ant-btn.ant-btn-loading:before {\n  display: block;\n}\n.ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {\n  padding-left: 29px;\n  pointer-events: none;\n  position: relative;\n}\n.ant-btn.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) .anticon {\n  margin-left: -14px;\n}\n.ant-btn-sm.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) {\n  padding-left: 24px;\n}\n.ant-btn-sm.ant-btn-loading:not(.ant-btn-circle):not(.ant-btn-circle-outline):not(.ant-btn-icon-only) .anticon {\n  margin-left: -17px;\n}\n.ant-btn-group {\n  position: relative;\n  display: inline-block;\n}\n.ant-btn-group > .ant-btn {\n  position: relative;\n  z-index: 1;\n}\n.ant-btn-group > .ant-btn:hover,\n.ant-btn-group > .ant-btn:focus,\n.ant-btn-group > .ant-btn:active,\n.ant-btn-group > .ant-btn.active {\n  z-index: 2;\n}\n.ant-btn-group > .ant-btn:disabled {\n  z-index: 0;\n}\n.ant-btn-group-lg > .ant-btn {\n  padding: 0 15px;\n  font-size: 14px;\n  border-radius: 4px;\n  height: 32px;\n}\n.ant-btn-group-sm > .ant-btn {\n  padding: 0 7px;\n  font-size: 12px;\n  border-radius: 4px;\n  height: 22px;\n}\n.ant-btn-group-sm > .ant-btn > .anticon {\n  font-size: 12px;\n}\n.ant-btn-group .ant-btn + .ant-btn,\n.ant-btn + .ant-btn-group,\n.ant-btn-group + .ant-btn,\n.ant-btn-group + .ant-btn-group {\n  margin-left: -1px;\n}\n.ant-btn-group .ant-btn:not(:first-child):not(:last-child) {\n  border-radius: 0;\n  padding-left: 8px;\n  padding-right: 8px;\n}\n.ant-btn-group > .ant-btn:first-child {\n  margin-left: 0;\n}\n.ant-btn-group > .ant-btn:first-child:not(:last-child) {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n  padding-right: 8px;\n}\n.ant-btn-group > .ant-btn:last-child:not(:first-child) {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n  padding-left: 8px;\n}\n.ant-btn-group > .ant-btn-group {\n  float: left;\n}\n.ant-btn-group > .ant-btn-group:not(:first-child):not(:last-child) > .ant-btn {\n  border-radius: 0;\n}\n.ant-btn-group > .ant-btn-group:first-child:not(:last-child) > .ant-btn:last-child {\n  border-bottom-right-radius: 0;\n  border-top-right-radius: 0;\n  padding-right: 8px;\n}\n.ant-btn-group > .ant-btn-group:last-child:not(:first-child) > .ant-btn:first-child {\n  border-bottom-left-radius: 0;\n  border-top-left-radius: 0;\n  padding-left: 8px;\n}\n.ant-btn:not(.ant-btn-circle):not(.ant-btn-circle-outline).ant-btn-icon-only {\n  padding-left: 8px;\n  padding-right: 8px;\n}\n.ant-btn:focus > span,\n.ant-btn:active > span {\n  position: relative;\n}\n.ant-btn > .anticon + span,\n.ant-btn > span + .anticon {\n  margin-left: 0.5em;\n}\n.ant-btn-clicked:after {\n  content: '';\n  position: absolute;\n  top: -1px;\n  left: -1px;\n  bottom: -1px;\n  right: -1px;\n  border-radius: inherit;\n  border: 0 solid #108ee9;\n  opacity: 0.4;\n  -webkit-animation: buttonEffect .4s;\n          animation: buttonEffect .4s;\n  display: block;\n}\n.ant-btn-danger.ant-btn-clicked:after {\n  border-color: #f04134;\n}\n.ant-btn-background-ghost {\n  background: transparent !important;\n  border-color: #fff;\n  color: #fff;\n}\n.ant-btn-background-ghost.ant-btn-primary {\n  color: #108ee9;\n  background-color: transparent;\n  border-color: #108ee9;\n}\n.ant-btn-background-ghost.ant-btn-primary > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-primary > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-primary:hover,\n.ant-btn-background-ghost.ant-btn-primary:focus {\n  color: #49a9ee;\n  background-color: transparent;\n  border-color: #49a9ee;\n}\n.ant-btn-background-ghost.ant-btn-primary:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-primary:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-primary:active,\n.ant-btn-background-ghost.ant-btn-primary.active {\n  color: #0e77ca;\n  background-color: transparent;\n  border-color: #0e77ca;\n}\n.ant-btn-background-ghost.ant-btn-primary:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-primary:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-primary.disabled,\n.ant-btn-background-ghost.ant-btn-primary[disabled],\n.ant-btn-background-ghost.ant-btn-primary.disabled:hover,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:hover,\n.ant-btn-background-ghost.ant-btn-primary.disabled:focus,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:focus,\n.ant-btn-background-ghost.ant-btn-primary.disabled:active,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:active,\n.ant-btn-background-ghost.ant-btn-primary.disabled.active,\n.ant-btn-background-ghost.ant-btn-primary[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-background-ghost.ant-btn-primary.disabled > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary[disabled] > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary.disabled:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary.disabled:focus > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:focus > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary.disabled:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary.disabled.active > a:only-child,\n.ant-btn-background-ghost.ant-btn-primary[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-primary.disabled > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary[disabled] > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary.disabled:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary.disabled:focus > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:focus > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary.disabled:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary[disabled]:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary.disabled.active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-primary[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-danger {\n  color: #f04134;\n  background-color: transparent;\n  border-color: #f04134;\n}\n.ant-btn-background-ghost.ant-btn-danger > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-danger > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-danger:hover,\n.ant-btn-background-ghost.ant-btn-danger:focus {\n  color: #f46e65;\n  background-color: transparent;\n  border-color: #f46e65;\n}\n.ant-btn-background-ghost.ant-btn-danger:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger:focus > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-danger:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger:focus > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-danger:active,\n.ant-btn-background-ghost.ant-btn-danger.active {\n  color: #d73435;\n  background-color: transparent;\n  border-color: #d73435;\n}\n.ant-btn-background-ghost.ant-btn-danger:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger.active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-danger:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger.active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n.ant-btn-background-ghost.ant-btn-danger.disabled,\n.ant-btn-background-ghost.ant-btn-danger[disabled],\n.ant-btn-background-ghost.ant-btn-danger.disabled:hover,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:hover,\n.ant-btn-background-ghost.ant-btn-danger.disabled:focus,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:focus,\n.ant-btn-background-ghost.ant-btn-danger.disabled:active,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:active,\n.ant-btn-background-ghost.ant-btn-danger.disabled.active,\n.ant-btn-background-ghost.ant-btn-danger[disabled].active {\n  color: rgba(0, 0, 0, 0.25);\n  background-color: #f7f7f7;\n  border-color: #d9d9d9;\n}\n.ant-btn-background-ghost.ant-btn-danger.disabled > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger[disabled] > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger.disabled:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:hover > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger.disabled:focus > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:focus > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger.disabled:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:active > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger.disabled.active > a:only-child,\n.ant-btn-background-ghost.ant-btn-danger[disabled].active > a:only-child {\n  color: currentColor;\n}\n.ant-btn-background-ghost.ant-btn-danger.disabled > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger[disabled] > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger.disabled:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:hover > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger.disabled:focus > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:focus > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger.disabled:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger[disabled]:active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger.disabled.active > a:only-child:after,\n.ant-btn-background-ghost.ant-btn-danger[disabled].active > a:only-child:after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background: transparent;\n}\n@-webkit-keyframes buttonEffect {\n  to {\n    opacity: 0;\n    top: -6px;\n    left: -6px;\n    bottom: -6px;\n    right: -6px;\n    border-width: 6px;\n  }\n}\n@keyframes buttonEffect {\n  to {\n    opacity: 0;\n    top: -6px;\n    left: -6px;\n    bottom: -6px;\n    right: -6px;\n    border-width: 6px;\n  }\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 372 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _button = __webpack_require__(373);
+
+var _button2 = _interopRequireDefault(_button);
+
+var _buttonGroup = __webpack_require__(375);
+
+var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_button2['default'].Group = _buttonGroup2['default'];
+exports['default'] = _button2['default'];
+module.exports = exports['default'];
+
+/***/ }),
+/* 373 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(138);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(294);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _classCallCheck2 = __webpack_require__(297);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(298);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(299);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(321);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(12);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _classnames = __webpack_require__(150);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _omit = __webpack_require__(368);
+
+var _omit2 = _interopRequireDefault(_omit);
+
+var _icon = __webpack_require__(374);
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var __rest = undefined && undefined.__rest || function (s, e) {
+    var t = {};
+    for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
+    }return t;
+};
+
+var rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
+var isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
+function isString(str) {
+    return typeof str === 'string';
+}
+// Insert one space between two chinese characters automatically.
+function insertSpace(child, needInserted) {
+    // Check the child if is undefined or null.
+    if (child == null) {
+        return;
+    }
+    var SPACE = needInserted ? ' ' : '';
+    // strictNullChecks oops.
+    if (typeof child !== 'string' && typeof child !== 'number' && isString(child.type) && isTwoCNChar(child.props.children)) {
+        return _react2['default'].cloneElement(child, {}, child.props.children.split('').join(SPACE));
+    }
+    if (typeof child === 'string') {
+        if (isTwoCNChar(child)) {
+            child = child.split('').join(SPACE);
+        }
+        return _react2['default'].createElement(
+            'span',
+            null,
+            child
+        );
+    }
+    return child;
+}
+
+var Button = function (_React$Component) {
+    (0, _inherits3['default'])(Button, _React$Component);
+
+    function Button(props) {
+        (0, _classCallCheck3['default'])(this, Button);
+
+        var _this = (0, _possibleConstructorReturn3['default'])(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+
+        _this.handleClick = function (e) {
+            // Add click effect
+            _this.setState({ clicked: true });
+            clearTimeout(_this.timeout);
+            _this.timeout = setTimeout(function () {
+                return _this.setState({ clicked: false });
+            }, 500);
+            var onClick = _this.props.onClick;
+            if (onClick) {
+                onClick(e);
+            }
+        };
+        _this.state = {
+            loading: props.loading
+        };
+        return _this;
+    }
+
+    (0, _createClass3['default'])(Button, [{
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var _this2 = this;
+
+            var currentLoading = this.props.loading;
+            var loading = nextProps.loading;
+            if (currentLoading) {
+                clearTimeout(this.delayTimeout);
+            }
+            if (typeof loading !== 'boolean' && loading && loading.delay) {
+                this.delayTimeout = setTimeout(function () {
+                    return _this2.setState({ loading: loading });
+                }, loading.delay);
+            } else {
+                this.setState({ loading: loading });
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+            }
+            if (this.delayTimeout) {
+                clearTimeout(this.delayTimeout);
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _classNames;
+
+            var _a = this.props,
+                type = _a.type,
+                shape = _a.shape,
+                _a$size = _a.size,
+                size = _a$size === undefined ? '' : _a$size,
+                className = _a.className,
+                htmlType = _a.htmlType,
+                children = _a.children,
+                icon = _a.icon,
+                prefixCls = _a.prefixCls,
+                ghost = _a.ghost,
+                others = __rest(_a, ["type", "shape", "size", "className", "htmlType", "children", "icon", "prefixCls", "ghost"]);var _state = this.state,
+                loading = _state.loading,
+                clicked = _state.clicked;
+            // large => lg
+            // small => sm
+
+            var sizeCls = '';
+            switch (size) {
+                case 'large':
+                    sizeCls = 'lg';
+                    break;
+                case 'small':
+                    sizeCls = 'sm';
+                default:
+                    break;
+            }
+            var classes = (0, _classnames2['default'])(prefixCls, className, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + type, type), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + sizeCls, sizeCls), (0, _defineProperty3['default'])(_classNames, prefixCls + '-icon-only', !children && icon), (0, _defineProperty3['default'])(_classNames, prefixCls + '-loading', loading), (0, _defineProperty3['default'])(_classNames, prefixCls + '-clicked', clicked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-background-ghost', ghost), _classNames));
+            var iconType = loading ? 'loading' : icon;
+            var iconNode = iconType ? _react2['default'].createElement(_icon2['default'], { type: iconType }) : null;
+            var needInserted = _react2['default'].Children.count(children) === 1 && (!iconType || iconType === 'loading');
+            var kids = _react2['default'].Children.map(children, function (child) {
+                return insertSpace(child, needInserted);
+            });
+            return _react2['default'].createElement(
+                'button',
+                (0, _extends3['default'])({}, (0, _omit2['default'])(others, ['loading', 'clicked']), { type: htmlType || 'button', className: classes, onClick: this.handleClick }),
+                iconNode,
+                kids
+            );
+        }
+    }]);
+    return Button;
+}(_react2['default'].Component);
+
+exports['default'] = Button;
+
+Button.__ANT_BUTTON = true;
+Button.defaultProps = {
+    prefixCls: 'ant-btn',
+    loading: false,
+    clicked: false,
+    ghost: false
+};
+Button.propTypes = {
+    type: _propTypes2['default'].string,
+    shape: _propTypes2['default'].oneOf(['circle', 'circle-outline']),
+    size: _propTypes2['default'].oneOf(['large', 'default', 'small']),
+    htmlType: _propTypes2['default'].oneOf(['submit', 'button', 'reset']),
+    onClick: _propTypes2['default'].func,
+    loading: _propTypes2['default'].oneOfType([_propTypes2['default'].bool, _propTypes2['default'].object]),
+    className: _propTypes2['default'].string,
+    icon: _propTypes2['default'].string
+};
+module.exports = exports['default'];
+
+/***/ }),
+/* 374 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(138);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(294);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(150);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _omit = __webpack_require__(368);
+
+var _omit2 = _interopRequireDefault(_omit);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Icon = function Icon(props) {
+    var type = props.type,
+        _props$className = props.className,
+        className = _props$className === undefined ? '' : _props$className,
+        spin = props.spin;
+
+    var classString = (0, _classnames2['default'])((0, _defineProperty3['default'])({
+        anticon: true,
+        'anticon-spin': !!spin || type === 'loading'
+    }, 'anticon-' + type, true), className);
+    return _react2['default'].createElement('i', (0, _extends3['default'])({}, (0, _omit2['default'])(props, ['type', 'spin']), { className: classString }));
+};
+exports['default'] = Icon;
+module.exports = exports['default'];
+
+/***/ }),
+/* 375 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends2 = __webpack_require__(138);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(294);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _classnames = __webpack_require__(150);
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var __rest = undefined && undefined.__rest || function (s, e) {
+    var t = {};
+    for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
+    }return t;
+};
+
+var ButtonGroup = function ButtonGroup(props) {
+    var _props$prefixCls = props.prefixCls,
+        prefixCls = _props$prefixCls === undefined ? 'ant-btn-group' : _props$prefixCls,
+        _props$size = props.size,
+        size = _props$size === undefined ? '' : _props$size,
+        className = props.className,
+        others = __rest(props, ["prefixCls", "size", "className"]);
+    // large => lg
+    // small => sm
+
+
+    var sizeCls = '';
+    switch (size) {
+        case 'large':
+            sizeCls = 'lg';
+            break;
+        case 'small':
+            sizeCls = 'sm';
+        default:
+            break;
+    }
+    var classes = (0, _classnames2['default'])(prefixCls, (0, _defineProperty3['default'])({}, prefixCls + '-' + sizeCls, sizeCls), className);
+    return _react2['default'].createElement('div', (0, _extends3['default'])({}, others, { className: classes }));
+};
+exports['default'] = ButtonGroup;
 module.exports = exports['default'];
 
 /***/ })

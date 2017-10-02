@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Radio } from 'antd';
+import { Card, Radio, Button } from 'antd';
 import './Card.css';
 
 const RadioGroup = Radio.Group;
@@ -10,10 +10,11 @@ export default class Cards extends React.Component {
     // We can't use other names instead of 'state' prop in obj
     // Because 'state' is an existing property name in React   
     this.state = {
-      cards: ["card1","card2","card3","card4","card5","card6","card7","card8","card9"],
-      value: 1
+      cards: ["card1","card2","card3","card4","card5"],
+      value: 1,
+      size: 'large',
     };
-
+    this.state.duplicateCards = this.state.cards;
     this.createListItems = this.createListItems.bind(this);
     this.handleOnScroll = this.handleOnScroll.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -35,9 +36,12 @@ export default class Cards extends React.Component {
   }
 
   onChange(e) {
+    console.log(this.state.duplicateCards)
     this.setState({
       value: e.target.value,
+      cards: this.state.duplicateCards.filter((card,idx) => (parseInt(idx+1)%e.target.value) == 0)
     });
+
   }
 
   handleOnScroll() {
@@ -48,24 +52,30 @@ export default class Cards extends React.Component {
     const windowBottom = windowHeight + window.pageYOffset;
     if (windowBottom >= docHeight) {
       this.newCardCreator();
-      this.setState({ cards: this.state.cards.concat(this.newCard) })
+      this.setState({ 
+        cards: this.state.cards.concat(this.newCard),
+        duplicateCards: this.state.cards 
+      });
     }
   }
 
   createListItems() {
     this.newCardCreator();
-    this.setState({ cards: this.state.cards.concat(this.newCard) })
+    this.setState({ 
+      cards: this.state.cards.concat(this.newCard),
+      duplicateCards: this.state.cards 
+    });
   }
 
   render() {
     return ( 
       <div>
-        <button onClick={this.createListItems}> Add </button>
         <RadioGroup onChange={this.onChange} value={this.state.value}>
-          <Radio value={1}>A</Radio>
-          <Radio value={2}>B</Radio>
-          <Radio value={3}>C</Radio>
-          <Radio value={4}>D</Radio>
+          <Radio value={1}>Filter 1</Radio>
+          <Radio value={2}>Filter 2</Radio>
+          <Radio value={3}>Filter 3</Radio>
+          <Radio value={5}>Filter 5</Radio>
+          <Radio value={10}>Filter 10</Radio>
         </RadioGroup>
         {this.state.cards.map((card, id) => { 
             return (<div key={id}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
@@ -74,7 +84,7 @@ export default class Cards extends React.Component {
                       </div>
                     </Card></div>)
           })}
-        
+        <Button type="primary" size={this.state.size} onClick={this.createListItems}> Add </Button>
       </div>
     )
   }
