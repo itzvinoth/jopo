@@ -1,9 +1,9 @@
 import React from "react";
 
-export default class Post extends React.Component {
+export default class Home extends React.Component {
   render() {
     return (
-        <header>This page contains list of job posts</header>
+        <h1>This page contains list of job posts</h1>
       )
   }
 }

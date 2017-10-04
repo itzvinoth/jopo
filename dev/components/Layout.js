@@ -8,17 +8,13 @@ export default class Layout extends React.Component {
 		super();
 		this.state = {name: "Not Changed"}
 	}
-  	render() {
-  		setTimeout(() => {
-  			this.setState({name: "Changed"})
-  		},1000)
+	render() {
     return (
     	<div>
-        	<Header/>
-        	<h1>Hello, Vinoth state {this.state.name}</h1>
-          <Link to="post">Post</Link>
-        	<Footer/>
-        </div>
-    	)
+      	<Header/>
+      	<h1>Hello, Vinoth state {this.state.name}</h1>
+      	<Footer/>
+      </div>
+  	)
   }
 }

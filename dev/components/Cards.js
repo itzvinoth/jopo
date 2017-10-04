@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Radio, Button } from 'antd';
+import { Link } from 'react-router-dom';
+import { Card, Radio, Button, Icon } from 'antd';
+import Formbutton from './Formbutton';
 import './Card.css';
 
 const RadioGroup = Radio.Group;
@@ -70,6 +72,14 @@ export default class Cards extends React.Component {
   render() {
     return ( 
       <div>
+        <ul>
+          <li>
+            <Link to='/home'>
+              <Formbutton/>
+            </Link>
+          </li>
+        </ul>
+        <br/>
         <RadioGroup onChange={this.onChange} value={this.state.value}>
           <Radio value={1}>Filter 1</Radio>
           <Radio value={2}>Filter 2</Radio>
