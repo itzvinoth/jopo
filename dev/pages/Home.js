@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Select, Button, Input, Icon } from 'antd';
 import '../components/Card.css';
 
-const { TextArea } = Input;
+const FormItem = Form.Item;
 export default class Home extends React.Component {
 	constructor(props) {
 		super(props);
@@ -11,9 +11,9 @@ export default class Home extends React.Component {
 		};
 		this.emitEmpty = this.emitEmpty.bind(this);
     	this.onChangeUserName = this.onChangeUserName.bind(this);
+    	this.handleSubmit = this.handleSubmit.bind(this);
 	}
 	emitEmpty() {
-		this.userNameInput.focus();
 		this.setState({
 			userName: ''
 		});
@@ -23,15 +23,26 @@ export default class Home extends React.Component {
 			userName: e.target.value
 		});
 	}
-
+	handleSubmit(e) {
+		this.setState({
+			userName: e.target.value
+		});
+		console.log('Received values of form: ', this.state.userName);
+		e.preventDefault();
+		this.emitEmpty();
+	}
   	render() {
   	const { userName } = this.state;
-    const suffix = userName ? <Icon type="close-circle" onClick={this.emitEmpty} /> : null;
     return (
     	<div className="example-input">
-    	<Input placeholder="Enter your userName" prefix={<Icon type="user" />} suffix={suffix} value={userName} onChange={this.onChangeUserName} ref={node => this.userNameInput = node}/>
-    	<br/><br/>
-    	<TextArea rows={4} />
+	    	<Form onSubmit={this.handleSubmit}>
+	    		<FormItem>
+	    			<Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName} ref={node => this.userNameInput = node}/>
+	    		</FormItem>
+	    		<FormItem>
+	    			<Button type="primary" htmlType="submit"> Submit </Button>
+	    		</FormItem>
+	    	</Form>
     	</div>
     	)
   	}
