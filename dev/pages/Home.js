@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
+import request from 'superagent';
 import { Form, Select, Button, Input, Icon } from 'antd';
 import '../components/Card.css';
 
+const { TextArea } = Input;
 const FormItem = Form.Item;
 export default class Home extends React.Component {
 	constructor(props) {
@@ -9,40 +11,45 @@ export default class Home extends React.Component {
 		this.state = {
 			userName: '',
 		};
-		this.emitEmpty = this.emitEmpty.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     	this.onChangeUserName = this.onChangeUserName.bind(this);
-    	this.handleSubmit = this.handleSubmit.bind(this);
-	}
-	emitEmpty() {
-		this.setState({
-			userName: ''
-		});
+        
 	}
 	onChangeUserName(e) {
-		this.setState({
+        this.setState({
 			userName: e.target.value
 		});
 	}
-	handleSubmit(e) {
-		this.setState({
-			userName: e.target.value
-		});
-		console.log('Received values of form: ', this.state.userName);
-		e.preventDefault();
-		this.emitEmpty();
-	}
+    clearForm() {
+        this.setState({userName: ''});
+    }
+    handleSubmit() {
+        const self = this;
+        const data = {
+            name: this.state.userName
+        };
+        request.post('/api').send(data).set('Accept', 'application/json').end((err, res) => {
+            if (err || !res.ok) {
+                console.log('Oh no! err' + JSON.stringify(data));
+            } else {
+                console.log('Success');
+            }
+        });
+    }
+
   	render() {
-  	const { userName } = this.state;
     return (
     	<div className="example-input">
-	    	<Form onSubmit={this.handleSubmit}>
-	    		<FormItem>
-	    			<Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName} ref={node => this.userNameInput = node}/>
-	    		</FormItem>
-	    		<FormItem>
-	    			<Button type="primary" htmlType="submit"> Submit </Button>
-	    		</FormItem>
-	    	</Form>
+          <Form onSubmit={this.handleSubmit}>
+            <FormItem>
+                <Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName}/>
+            </FormItem>
+            <FormItem>
+                <Button type="primary" htmlType="submit">
+                    Submit
+                </Button>
+            </FormItem>
+            </Form>
     	</div>
     	)
   	}
