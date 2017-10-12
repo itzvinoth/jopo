@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 app.post("/api", (req, res) => {
   const doc = new User({ userName: req.body.userName })
   doc.save();
+  res.send('success');
 });
 
 app.listen(port, () => {

@@ -28,9 +28,9 @@ export default class Home extends React.Component {
         const data = {
             name: this.state.userName
         };
-        request.post('/api').send(data).set('Accept', 'application/json').end((err, res) => {
+        request.post('/api').set('Accept', 'application/json').send(data).end((err, res) => {
             if (err || !res.ok) {
-                console.log('Oh no! err' + JSON.stringify(data));
+                console.log('Oh no! err' + err);
             } else {
                 console.log('Success');
             }
@@ -40,12 +40,12 @@ export default class Home extends React.Component {
   	render() {
     return (
     	<div className="example-input">
-          <Form onSubmit={this.handleSubmit}>
+          <Form>
             <FormItem>
                 <Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName}/>
             </FormItem>
             <FormItem>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" onClick={this.handleSubmit}>
                     Submit
                 </Button>
             </FormItem>
