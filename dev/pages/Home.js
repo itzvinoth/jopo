@@ -26,7 +26,7 @@ export default class Home extends React.Component {
     handleSubmit() {
         const self = this;
         const data = {
-            name: this.state.userName
+            userName: this.state.userName
         };
         request.post('/api').set('Accept', 'application/json').send(data).end((err, res) => {
             if (err || !res.ok) {
@@ -45,7 +45,7 @@ export default class Home extends React.Component {
                 <Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName}/>
             </FormItem>
             <FormItem>
-                <Button type="primary" htmlType="submit" onClick={this.handleSubmit}>
+                <Button type="primary" htmlType="submit" onClick={this.handleSubmit} action="#">
                     Submit
                 </Button>
             </FormItem>

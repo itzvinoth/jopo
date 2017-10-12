@@ -33,6 +33,7 @@
     "express": "^4.16.1",
     "fetch-polyfill": "^0.8.2",
     "jquery": "^3.2.1",
+    "mongo-client": "^0.2.1",
     "mongodb": "^2.2.31",
     "mongoose": "^4.12.1",
     "react": "^15.6.1",
