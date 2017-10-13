@@ -34709,7 +34709,7 @@ var Home = function (_React$Component) {
         value: function handleSubmit() {
             var self = this;
             var data = {
-                name: this.state.userName
+                userName: this.state.userName
             };
             _superagent2.default.post('/api').set('Accept', 'application/json').send(data).end(function (err, res) {
                 if (err || !res.ok) {
@@ -34738,7 +34738,7 @@ var Home = function (_React$Component) {
                         null,
                         _react2.default.createElement(
                             _button2.default,
-                            { type: 'primary', htmlType: 'submit', onClick: this.handleSubmit },
+                            { type: 'primary', htmlType: 'submit', onClick: this.handleSubmit, action: '#' },
                             'Submit'
                         )
                     )
