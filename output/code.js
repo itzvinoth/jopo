@@ -34713,7 +34713,6 @@ var Home = function (_React$Component) {
         };
         _this.handleSubmit = _this.handleSubmit.bind(_this);
         _this.onChangeUserName = _this.onChangeUserName.bind(_this);
-
         return _this;
     }
 

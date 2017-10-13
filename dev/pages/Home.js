@@ -13,7 +13,6 @@ export default class Home extends React.Component {
 		};
         this.handleSubmit = this.handleSubmit.bind(this);
     	this.onChangeUserName = this.onChangeUserName.bind(this);
-        
 	}
 	onChangeUserName(e) {
         this.setState({
