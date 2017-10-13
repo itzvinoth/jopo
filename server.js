@@ -8,11 +8,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var MongoClient = require('mongodb').MongoClient;
 var myConnection;
 
-function createConnection(){ 
-    
-    var url = 'mongodb://localhost:27017/jopo';
-
-}
 // serve pure static assets
 app.use("/output", express.static('./output'))
 
@@ -39,6 +34,5 @@ app.post("/api", (req, res) => {
 });
 
 app.listen(port, () => {
-	createConnection()
-    console.log("Server listening on port " + port);
+	console.log("Server listening on port " + port);
 });
