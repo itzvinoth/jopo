@@ -2,17 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon } from 'antd';
 import Formbutton from './Formbutton';
+import request from 'superagent';
+import _ from 'underscore';
 import './Card.css';
 
 const RadioGroup = Radio.Group;
+
 export default class Cards extends React.Component {
   
   constructor(props) {
     super(props);
+    
     // We can't use other names instead of 'state' prop in obj
-    // Because 'state' is an existing property name in React   
+    // Because 'state' is an existing property name in React 
     this.state = {
-      cards: ["card1","card2","card3","card4","card5"],
+      cards: [],
       value: 1,
       size: 'large',
     };
@@ -22,9 +26,24 @@ export default class Cards extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  getCards() {
+    let self = this;
+    request.get("/users").end(function(err, res) {
+      if (err) {
+        console.log(err);
+        self.setState({ cards: ["card1","card2","card3","card4","card5"]});
+      } else {
+        let cards = _.compact(_.pluck(res.body, 'userName'));
+        self.setState({ cards : cards });
+      }
+    });
+  }
+
   componentDidMount() {
     // We can't directly use setState in here.
     window.addEventListener("scroll", this.handleOnScroll);
+    //requesting data from the api
+    this.getCards();
     this.createListItems();
   }
 

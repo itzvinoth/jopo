@@ -27,6 +27,7 @@ export default class Home extends React.Component {
         const data = {
             userName: this.state.userName
         };
+        //Posting and input field value to api
         request.post('/api').set('Accept', 'application/json').send(data).end((err, res) => {
             if (err || !res.ok) {
                 console.log('Oh no! err' + err);
