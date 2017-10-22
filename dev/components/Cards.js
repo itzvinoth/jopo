@@ -29,12 +29,13 @@ export default class Cards extends React.Component {
 
   getCards() {
     let self = this;
-    request.get("/users").end(function(err, res) {
+    request.get("/api/users").end(function(err, res) {
       if (err) {
         console.log(err);
         self.setState({ cards: ["card1","card2","card3","card4","card5"]});
       } else {
         let cards = _.compact(_.pluck(res.body, 'userName'));
+        console.log(cards);
         self.setState({ cards : cards });
       }
     });
