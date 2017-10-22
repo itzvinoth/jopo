@@ -24,11 +24,6 @@ app.use(bodyParser.urlencoded({
 // Serve static assets
 app.use("/dist", express.static("./dist"))
 
-// Serve root
-app.get("/*", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-});
-
 // API's
 var User = require("./user");
 
@@ -38,6 +33,16 @@ app.get("/api/users", (req, res) => {
             res.send("No users found")
         } else {
             res.json(users);
+        }
+    })
+});
+
+app.get("/api/usersdel", (req, res) => {
+    User.find({}).exec(function(err, users) {
+        if (err) {
+            res.send("No users found")
+        } else {
+            res.json([]);
         }
     })
 });
@@ -53,6 +58,11 @@ app.post("/api/users", (req, res) => {
             res.send({ userName: req.body.userName });
         }
     });
+});
+
+// Serve root
+app.get("/*", (req, res) => {
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.listen(port, () => {

@@ -35,7 +35,6 @@ export default class Cards extends React.Component {
         self.setState({ cards: ["card1","card2","card3","card4","card5"]});
       } else {
         let cards = _.compact(_.pluck(res.body, 'userName'));
-        console.log(cards);
         self.setState({ cards : cards });
       }
     });
@@ -59,7 +58,6 @@ export default class Cards extends React.Component {
   }
 
   onChange(e) {
-    console.log(this.state.duplicateCards)
     this.setState({
       value: e.target.value,
       cards: this.state.duplicateCards.filter((card,idx) => (parseInt(idx+1)%e.target.value) == 0)
@@ -100,7 +98,7 @@ export default class Cards extends React.Component {
             </Link>
           </li>
           <li>
-            <Clearbutton/>
+            <Clearbutton cards={this.state.cards}/>
           </li>
         </ul>
         <br/>

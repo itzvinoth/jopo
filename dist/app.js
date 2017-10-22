@@ -31645,7 +31645,6 @@ var Cards = function (_React$Component) {
           self.setState({ cards: ["card1", "card2", "card3", "card4", "card5"] });
         } else {
           var cards = _underscore2.default.compact(_underscore2.default.pluck(res.body, 'userName'));
-          console.log(cards);
           self.setState({ cards: cards });
         }
       });
@@ -31673,7 +31672,6 @@ var Cards = function (_React$Component) {
   }, {
     key: 'onChange',
     value: function onChange(e) {
-      console.log(this.state.duplicateCards);
       this.setState({
         value: e.target.value,
         cards: this.state.duplicateCards.filter(function (card, idx) {
@@ -31727,7 +31725,7 @@ var Cards = function (_React$Component) {
           _react2.default.createElement(
             'li',
             null,
-            _react2.default.createElement(_Clearbutton2.default, null)
+            _react2.default.createElement(_Clearbutton2.default, { cards: this.state.cards })
           )
         ),
         _react2.default.createElement('br', null),
@@ -35573,7 +35571,7 @@ __webpack_require__(36);
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 
 var _css = __webpack_require__(68);
@@ -35588,6 +35586,10 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _superagent = __webpack_require__(185);
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35597,30 +35599,46 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Clearbutton = function (_React$Component) {
-  _inherits(Clearbutton, _React$Component);
+	_inherits(Clearbutton, _React$Component);
 
-  function Clearbutton() {
-    _classCallCheck(this, Clearbutton);
+	function Clearbutton(props) {
+		_classCallCheck(this, Clearbutton);
 
-    return _possibleConstructorReturn(this, (Clearbutton.__proto__ || Object.getPrototypeOf(Clearbutton)).apply(this, arguments));
-  }
+		var _this = _possibleConstructorReturn(this, (Clearbutton.__proto__ || Object.getPrototypeOf(Clearbutton)).call(this, props));
 
-  _createClass(Clearbutton, [{
-    key: "render",
-    value: function render() {
-      return _react2.default.createElement(
-        _button2.default.Group,
-        { size: "large" },
-        _react2.default.createElement(
-          _button2.default,
-          { type: "primary" },
-          "Clear Data"
-        )
-      );
-    }
-  }]);
+		_this.onClearData = _this.onClearData.bind(_this);
+		return _this;
+	}
 
-  return Clearbutton;
+	_createClass(Clearbutton, [{
+		key: 'onClearData',
+		value: function onClearData() {
+			var self = this;
+			_superagent2.default.get("/api/usersdel").end(function (err, res) {
+				if (err) {
+					console.log(err);
+				} else {
+					self.setState({ cards: res.body.text });
+				}
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			var cards = this.props.cards;
+			return _react2.default.createElement(
+				_button2.default.Group,
+				{ size: 'large' },
+				_react2.default.createElement(
+					_button2.default,
+					{ type: 'primary', value: cards, onClick: this.onClearData },
+					'Clear Data'
+				)
+			);
+		}
+	}]);
+
+	return Clearbutton;
 }(_react2.default.Component);
 
 exports.default = Clearbutton;

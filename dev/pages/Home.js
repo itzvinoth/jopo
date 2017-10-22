@@ -40,15 +40,15 @@ export default class Home extends React.Component {
   	render() {
     return (
     	<div className="example-input">
-          <Form>
-            <FormItem>
-                <Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName}/>
-            </FormItem>
-            <FormItem>
-                <Button type="primary" htmlType="submit" onClick={this.handleSubmit} action="#">
-                    Submit
-                </Button>
-            </FormItem>
+            <Form>
+                <FormItem>
+                    <Input placeholder="Enter your userName" value={this.state.userName} onChange={this.onChangeUserName}/>
+                </FormItem>
+                <FormItem>
+                    <Button type="primary" htmlType="submit" onClick={this.handleSubmit} action="#">
+                        Submit
+                    </Button>
+                </FormItem>
             </Form>
     	</div>
     	)
