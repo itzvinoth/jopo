@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon } from 'antd';
 import Formbutton from './Formbutton';
+import Clearbutton from './Clearbutton';
 import request from 'superagent';
 import _ from 'underscore';
 import './Card.css';
@@ -91,11 +92,14 @@ export default class Cards extends React.Component {
   render() {
     return ( 
       <div>
-        <ul>
+        <ul id="horizontal-list">
           <li>
             <Link to='/home'>
               <Formbutton/>
             </Link>
+          </li>
+          <li>
+            <Clearbutton/>
           </li>
         </ul>
         <br/>

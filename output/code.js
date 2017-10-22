@@ -31589,6 +31589,10 @@ var _Formbutton = __webpack_require__(405);
 
 var _Formbutton2 = _interopRequireDefault(_Formbutton);
 
+var _Clearbutton = __webpack_require__(511);
+
+var _Clearbutton2 = _interopRequireDefault(_Clearbutton);
+
 var _superagent = __webpack_require__(185);
 
 var _superagent2 = _interopRequireDefault(_superagent);
@@ -31709,7 +31713,7 @@ var Cards = function (_React$Component) {
         null,
         _react2.default.createElement(
           'ul',
-          null,
+          { id: 'horizontal-list' },
           _react2.default.createElement(
             'li',
             null,
@@ -31718,6 +31722,11 @@ var Cards = function (_React$Component) {
               { to: '/home' },
               _react2.default.createElement(_Formbutton2.default, null)
             )
+          ),
+          _react2.default.createElement(
+            'li',
+            null,
+            _react2.default.createElement(_Clearbutton2.default, null)
           )
         ),
         _react2.default.createElement('br', null),
@@ -38155,7 +38164,7 @@ exports = module.exports = __webpack_require__(27)(undefined);
 exports.i(__webpack_require__(414), "");
 
 // module
-exports.push([module.i, ".custom-card {\r\n  padding: 10px 16px;\r\n}\r\n.custom-card p {\r\n  color: #999;\r\n}\r\n.anticon-close-circle {\r\n  cursor: pointer;\r\n  color: #ccc;\r\n  transition: color 0.3s;\r\n  font-size: 12px;\r\n}\r\n.anticon-close-circle:hover {\r\n  color: #999;\r\n}\r\n.anticon-close-circle:active {\r\n  color: #666;\r\n}\r\n.example-input .ant-input {\r\n  width: 200px;\r\n  margin: 0 8px 8px 0;\r\n}\r\n.example-input {\r\n  text-align: center;\r\n}", ""]);
+exports.push([module.i, ".custom-card {\r\n  padding: 10px 16px;\r\n}\r\n.custom-card p {\r\n  color: #999;\r\n}\r\n.anticon-close-circle {\r\n  cursor: pointer;\r\n  color: #ccc;\r\n  transition: color 0.3s;\r\n  font-size: 12px;\r\n}\r\n.anticon-close-circle:hover {\r\n  color: #999;\r\n}\r\n.anticon-close-circle:active {\r\n  color: #666;\r\n}\r\n.example-input .ant-input {\r\n  width: 200px;\r\n  margin: 0 8px 8px 0;\r\n}\r\n.example-input {\r\n  text-align: center;\r\n}\r\nul#horizontal-list {\r\n  min-width: 696px;\r\n  list-style: none;\r\n  padding-top: 20px;\r\n}\r\nul#horizontal-list li {\r\n  display: inline;\r\n  padding-left: 40px;\r\n}", ""]);
 
 // exports
 
@@ -43402,6 +43411,66 @@ var Post = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Post;
+
+/***/ }),
+/* 511 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _css = __webpack_require__(100);
+
+var _button = __webpack_require__(101);
+
+var _button2 = _interopRequireDefault(_button);
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(3);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Formbutton = function (_React$Component) {
+  _inherits(Formbutton, _React$Component);
+
+  function Formbutton() {
+    _classCallCheck(this, Formbutton);
+
+    return _possibleConstructorReturn(this, (Formbutton.__proto__ || Object.getPrototypeOf(Formbutton)).apply(this, arguments));
+  }
+
+  _createClass(Formbutton, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        _button2.default.Group,
+        { size: "large" },
+        _react2.default.createElement(
+          _button2.default,
+          { type: "primary" },
+          "Clear Data"
+        )
+      );
+    }
+  }]);
+
+  return Formbutton;
+}(_react2.default.Component);
+
+exports.default = Formbutton;
 
 /***/ })
 /******/ ]);

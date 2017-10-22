@@ -25,3 +25,12 @@
 .example-input {
   text-align: center;
 }
+ul#horizontal-list {
+  min-width: 696px;
+  list-style: none;
+  padding-top: 20px;
+}
+ul#horizontal-list li {
+  display: inline;
+  padding-left: 40px;
+}
