@@ -11,13 +11,7 @@ export default class Clearbutton extends React.Component {
 
   	onClearData() {
   		let self = this;
-		request.get("/api/usersdel").end(function(err, res) {
-			if (err) {
-				console.log(err);
-			} else {
-				self.setState({cards: res.body.text});
-			}
-		});
+  		// console.log(this.props.cards);
   	}
   	
   	render() {

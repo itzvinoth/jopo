@@ -34,3 +34,13 @@ ul#horizontal-list li {
   display: inline;
   padding-left: 40px;
 }
+.main{
+  display: flex;
+  flex-direction: row;
+}
+.cards {
+  flex: 1;
+}
+.sliderform {
+  flex: 1;
+}
