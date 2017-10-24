@@ -3,7 +3,6 @@ import request from 'superagent';
 import { Form, Select, Button, Input, Icon } from 'antd';
 import '../components/Card.css';
 
-const { TextArea } = Input;
 const FormItem = Form.Item;
 export default class Home extends React.Component {
 	constructor(props) {
