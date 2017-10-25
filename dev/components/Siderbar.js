@@ -4,33 +4,46 @@ import { Form, Select, Input, Layout, Button, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
 const FormItem = Form.Item;
 const Option = Select.Option;
-export default class Siderbar extends React.Component {
+
+class SiderBar extends React.Component {
 	constructor(props) {
 	    super(props);
   	}
 
   	render() {
   		const collapsed = this.props.collapsed;
+  		const { getFieldDecorator } = this.props.form;
   		if (!collapsed) {
     		return null;
   		}
   		return (
-  				<Layout>
-  					<Sider trigger={null} collapsible collapsed={collapsed}>
-			            <Layout>
-			            	<Form>
-				                <FormItem label="Company Name" labelCol={{ span: 4 }} wrapperCol={{ span: 8 }}>
-				                    <Input/>
-				                </FormItem>
-				                <FormItem>
-				                    <Button type="primary" htmlType="submit" action="#">
-				                        Submit
-				                    </Button>
-				                </FormItem>
-				            </Form>
-		                </Layout>
-          			</Sider>
-  				</Layout>
+        	<Form>
+                <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
+                    {getFieldDecorator('cname', {
+			            rules: [{ required: true, message: 'Please provide your company name!' }],
+			        })(<Input />)}
+                </FormItem>
+                <FormItem label="Designation" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
+                    {getFieldDecorator('designation', {
+			            rules: [{ required: true, message: 'Please select the designation!' }],
+			        })(<Select placeholder="Select a option">
+			              <Option value="frontend">Frontend Developer</Option>
+			              <Option value="backend">Backend Developer</Option>
+            			</Select>)}
+                </FormItem>
+                <FormItem label="Number of years" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
+                    {getFieldDecorator('nyears', {
+			            rules: [{ required: true, message: 'Please provide your company name!' }],
+			        })(<Input />)}
+                </FormItem>
+                <FormItem wrapperCol={{ span: 8, offset: 4 }}>
+					<Button type="primary" htmlType="submit">
+						Submit
+					</Button>
+				</FormItem>
+            </Form>
   		)
   	}
 }
+const Siderbar = Form.create()(SiderBar);
+export default Siderbar;

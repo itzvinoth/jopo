@@ -34,11 +34,21 @@ ul#horizontal-list li {
   display: inline;
   padding-left: 40px;
 }
-.sliderform {
-  width:100%;
+.main{
+  width: 1%;
+  display: inline-block;
+}
+.cards {
+  width:50%;
   height:100%;
+  display: inline-block;
+}
+.sliderform {
+  width:50%;
+  height:100%;
+  display: inline-block;
   background-color:#CCCCCC;
-  position:relative;
+  position:absolute;
   margin-left: 50%;
 }
 .trigger {
