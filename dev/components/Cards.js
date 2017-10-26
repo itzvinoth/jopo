@@ -61,8 +61,7 @@ export default class Cards extends React.Component {
       collapsed: !prevState.collapsed
     }));
   }
-
-
+  
   render() {
     return ( 
       <div className="main">
@@ -72,9 +71,6 @@ export default class Cards extends React.Component {
               <Link to='/home'>
                 <Formbutton/>
               </Link>
-            </li>
-            <li>
-              <Clearbutton cards={this.state.cards}/>
             </li>
           </ul>
           <br/>

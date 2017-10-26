@@ -1,6 +1,6 @@
 import React from 'react';
 import './Card.css';
-import { Form, Select, Input, Layout, Button, Menu, Icon } from 'antd';
+import { Form, Select, Input, Layout, Button, Menu, Icon, InputNumber } from 'antd';
 const { Header, Sider, Content } = Layout;
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -8,7 +8,24 @@ const Option = Select.Option;
 class SiderBar extends React.Component {
 	constructor(props) {
 	    super(props);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSelectChange = this.handleSelectChange.bind(this);
   	}
+
+    handleSubmit(e) {
+      e.preventDefault();
+      this.props.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('Received values of form: ', values);
+        }
+      });
+    }
+
+    handleSelectChange(value) {
+      this.props.form.setFieldsValue({
+        designation: value,
+      });
+    }
 
   	render() {
   		const collapsed = this.props.collapsed;
@@ -17,30 +34,31 @@ class SiderBar extends React.Component {
     		return null;
   		}
   		return (
-        	<Form>
+        	<Form onSubmit={this.handleSubmit} >
                 <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
-                    {getFieldDecorator('cname', {
+                    {getFieldDecorator('companyName', {
 			            rules: [{ required: true, message: 'Please provide your company name!' }],
-			        })(<Input />)}
+			        })(<Input/>)}
                 </FormItem>
                 <FormItem label="Designation" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
                     {getFieldDecorator('designation', {
 			            rules: [{ required: true, message: 'Please select the designation!' }],
-			        })(<Select placeholder="Select a option">
+			        })(<Select placeholder="Select a option" onChange={this.handleSelectChange}>
 			              <Option value="frontend">Frontend Developer</Option>
 			              <Option value="backend">Backend Developer</Option>
             			</Select>)}
                 </FormItem>
                 <FormItem label="Number of years" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
-                    {getFieldDecorator('nyears', {
-			            rules: [{ required: true, message: 'Please provide your company name!' }],
-			        })(<Input />)}
+                    {getFieldDecorator('yearsExp', { initialValue: 3 })(
+                      <InputNumber min={0} max={10}/>
+                    )}
+                    <span className="ant-form-text"> years of experience</span>
                 </FormItem>
-                <FormItem wrapperCol={{ span: 8, offset: 4 }}>
-					<Button type="primary" htmlType="submit">
-						Submit
-					</Button>
-				</FormItem>
+                <FormItem wrapperCol={{ span: 12, offset: 12}}>
+        					<Button type="primary" htmlType="submit" >
+        						Submit
+        					</Button>
+        				</FormItem>
             </Form>
   		)
   	}
