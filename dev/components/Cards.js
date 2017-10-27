@@ -35,7 +35,9 @@ export default class Cards extends React.Component {
         self.setState({ cards: ["card1","card2","card3","card4","card5"]});
       } else {
         let cards = _.compact(_.pluck(res.body, 'userName'));
-        self.setState({ cards : cards });
+        //Temporarily commenting because of the long list of cards....
+        // self.setState({ cards : cards });
+        self.setState({ cards : ["cards"] });
       }
     });
   }
@@ -59,8 +61,7 @@ export default class Cards extends React.Component {
       collapsed: !prevState.collapsed
     }));
   }
-
-
+  
   render() {
     return ( 
       <div className="main">
@@ -70,9 +71,6 @@ export default class Cards extends React.Component {
               <Link to='/home'>
                 <Formbutton/>
               </Link>
-            </li>
-            <li>
-              <Clearbutton cards={this.state.cards}/>
             </li>
           </ul>
           <br/>

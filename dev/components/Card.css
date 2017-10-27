@@ -35,14 +35,21 @@ ul#horizontal-list li {
   padding-left: 40px;
 }
 .main{
-  display: flex;
-  flex-direction: row;
+  width: 1%;
+  display: inline-block;
 }
 .cards {
-  flex: 1;
+  width:50%;
+  height:100%;
+  display: inline-block;
 }
 .sliderform {
-  flex: 1;
+  width:50%;
+  height:100%;
+  display: inline-block;
+  background-color:#CCCCCC;
+  position:absolute;
+  margin-left: 50%;
 }
 .trigger {
   font-size: 18px;
