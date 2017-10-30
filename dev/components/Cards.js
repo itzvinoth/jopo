@@ -29,7 +29,7 @@ export default class Cards extends React.Component {
 
   getCards() {
     let self = this;
-    request.get("/api/users").end(function(err, res) {
+    request.get("/api/jobpost").end(function(err, res) {
       if (err) {
         console.log(err);
         self.setState({ cards: ["card1","card2","card3","card4","card5"]});
@@ -66,14 +66,6 @@ export default class Cards extends React.Component {
     return ( 
       <div className="main">
         <div className="cards">
-          <ul id="horizontal-list">
-            <li>
-              <Link to='/home'>
-                <Formbutton/>
-              </Link>
-            </li>
-          </ul>
-          <br/>
           {this.state.cards.map((card, id) => { 
               return (<div key={id}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
                         <div className="custom-card">
