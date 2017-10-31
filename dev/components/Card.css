@@ -34,9 +34,12 @@ ul#horizontal-list li {
   display: inline;
   padding-left: 40px;
 }
-.main{
+.main {
   width: 1%;
   display: inline-block;
+}
+.header {
+  margin: 30px;
 }
 .cards {
   width:50%;
@@ -57,4 +60,7 @@ ul#horizontal-list li {
   padding: 0 16px;
   cursor: pointer;
   transition: color .3s;
+}
+.loginDiv {
+  margin: 100px;
 }

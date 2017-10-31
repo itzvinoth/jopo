@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon } from 'antd';
-import Formbutton from './Formbutton';
-import Clearbutton from './Clearbutton';
+import Loginbutton from '../subcomponents/Loginbutton';
+import Clearbutton from '../subcomponents/Clearbutton';
 import Siderbar from './Siderbar';
 import request from 'superagent';
 import _ from 'underscore';
@@ -40,7 +40,8 @@ export default class Cards extends React.Component {
         let cards = _.compact(_.pluck(res.body, 'userName'));
         //Temporarily commenting because of the long list of cards....
         // self.setState({ cards : cards });
-        self.setState({ cards : [{jobId:0,companyName:"VBI", designation:"Frontend Developer", details:"Strong skillset", yearsExp:3}] });
+        self.setState({ cards : [{jobId:0,companyName:"VBI", designation:"Frontend Developer", details:"Strong skillset", yearsExp:3},
+          {jobId:0,companyName:"Dell", designation:"Frontend Developer", details:"Strong skillset", yearsExp:6}] });
       }
     });
   }
@@ -83,6 +84,11 @@ export default class Cards extends React.Component {
   render() {
     return ( 
       <div className="main">
+        <div className="header">
+          <Link to='/signin'>
+            <Loginbutton/>
+          </Link>
+        </div>
         <div className="cards">
           {this.state.cards.map((card, id) => { 
               return (<div key={id} onClick = {this.editCard.bind(this,card)}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>

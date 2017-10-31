@@ -8,7 +8,7 @@ const Option = Select.Option;
 const { TextArea } = Input;
 
 class SiderBar extends React.Component {
-	constructor(props) {
+  constructor(props) {
       super(props);
       this.state = {
         companyName: '',
@@ -21,7 +21,7 @@ class SiderBar extends React.Component {
       this.onDesignationChange = this.onDesignationChange.bind(this);
       this.onDetailsUpdate = this.onDetailsUpdate.bind(this);
       this.onExpChange = this.onExpChange.bind(this);
-  	}
+    }
 
     onChangeCompanyName(e) {
       this.setState({
@@ -83,14 +83,14 @@ class SiderBar extends React.Component {
       }
     }
 
-  	render() {
-  		const collapsed = this.props.collapsed;
-  		if (!collapsed) {
-    		return null;
-  		}
+    render() {
+      const collapsed = this.props.collapsed;
+      if (!collapsed) {
+        return null;
+      }
 
-  		return (
-        	<Form>
+      return (
+          <Form>
                 <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
                   <Input placeholder="Enter your company name" value={this.state.companyName} onChange={this.onChangeCompanyName}/>
                 </FormItem>
@@ -113,8 +113,8 @@ class SiderBar extends React.Component {
                   </Button>
                 </FormItem>
             </Form>
-  		)
-  	}
+      )
+    }
 }
 const Siderbar = Form.create()(SiderBar);
 export default Siderbar;
