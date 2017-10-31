@@ -61,7 +61,9 @@ class SiderBar extends React.Component {
         details: this.state.details,
         yearsExp: this.state.yearsExp
       };
-      
+
+      this.props.generateCard(data);    // Callback Card.js populateCard() function 
+
       request.post('/api/jobpost').set('Accept', 'application/json').send(data).end((err, res) => {
         if (err || !res.ok) {
             console.log('Oh no! err' + err);
@@ -71,11 +73,22 @@ class SiderBar extends React.Component {
       });
     }
 
+    // Populate the card details in form to edit the details 
+
+    componentWillReceiveProps(newProps){
+      const editingJob = newProps.editJob;
+      const obj = newProps.editJobObj;
+      if(editingJob && obj != this.state){
+        this.setState({companyName:obj.companyName, designation: obj.designation, details: obj.details, yearsExp: obj.yearsExp});
+      }
+    }
+
   	render() {
   		const collapsed = this.props.collapsed;
   		if (!collapsed) {
     		return null;
   		}
+
   		return (
         	<Form>
                 <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
