@@ -26,6 +26,7 @@ app.use("/dist", express.static("./dist"))
 
 // API's
 var User = require("./user");
+var Jobs = require("./jobs");
 
 app.get("/api/users", (req, res) => {
     User.find({}).exec(function(err, users) {
@@ -33,6 +34,16 @@ app.get("/api/users", (req, res) => {
             res.send("No users found")
         } else {
             res.json(users);
+        }
+    })
+});
+
+app.get("/api/jobpost", (req, res) => {
+    Jobs.find({}).exec(function(err, jobs) {
+        if (err) {
+            res.send("No job details found")
+        } else {
+            res.json(jobs);
         }
     })
 });
@@ -46,6 +57,29 @@ app.get("/api/usersdel", (req, res) => {
         }
     })
 });
+
+app.post("/api/jobpost", (req, res) => {
+    const doc = new Jobs({ 
+        companyName: req.body.companyName,
+        designation: req.body.designation,
+        details: req.body.details,
+        yearsExp: req.body.yearsExp 
+    })
+    doc.save(function(err, user) {
+        if (err) {
+            res.status(503).send({
+               message: "Couldn't save to server."
+            });
+        } else {
+            res.send({ 
+                companyName: req.body.companyName,
+                designation: req.body.designation,
+                details: req.body.details,
+                yearsExp: req.body.yearsExp });
+            }
+    });
+});
+
 
 app.post("/api/users", (req, res) => {
     const doc = new User({ userName: req.body.userName })

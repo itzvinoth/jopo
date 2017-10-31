@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon } from 'antd';
-import Formbutton from './Formbutton';
-import Clearbutton from './Clearbutton';
+import Loginbutton from '../subcomponents/Loginbutton';
+import Clearbutton from '../subcomponents/Clearbutton';
 import Siderbar from './Siderbar';
 import request from 'superagent';
 import _ from 'underscore';
@@ -19,17 +19,20 @@ export default class Cards extends React.Component {
     // Because 'state' is an existing property name in React 
     this.state = {
       cards: [],
+      editCardObj : {},
+      editing:false,
       size: 'large',
       collapsed: false
     };
     this.state.duplicateCards = this.state.cards;
     this.formToggle = this.formToggle.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.populateCard = this.populateCard.bind(this);
   }
 
   getCards() {
     let self = this;
-    request.get("/api/users").end(function(err, res) {
+    request.get("/api/jobpost").end(function(err, res) {
       if (err) {
         console.log(err);
         self.setState({ cards: ["card1","card2","card3","card4","card5"]});
@@ -37,9 +40,25 @@ export default class Cards extends React.Component {
         let cards = _.compact(_.pluck(res.body, 'userName'));
         //Temporarily commenting because of the long list of cards....
         // self.setState({ cards : cards });
-        self.setState({ cards : ["cards"] });
+        self.setState({ cards : [{jobId:0,companyName:"VBI", designation:"Frontend Developer", details:"Strong skillset", yearsExp:3},
+          {jobId:0,companyName:"Dell", designation:"Frontend Developer", details:"Strong skillset", yearsExp:6}] });
       }
     });
+  }
+
+  // Populate Card when job is added
+
+  populateCard(obj) {
+    var arr = this.state.cards;
+    arr.push(obj);
+    this.setState({cards:arr, editing:false});
+  }
+
+  // Edit Card 
+
+  editCard(obj,val){
+    const data = obj;
+    this.setState({editCardObj:data, editing:true});
   }
 
   componentDidMount() {
@@ -65,26 +84,26 @@ export default class Cards extends React.Component {
   render() {
     return ( 
       <div className="main">
+        <div className="header">
+          <Link to='/signin'>
+            <Loginbutton/>
+          </Link>
+        </div>
         <div className="cards">
-          <ul id="horizontal-list">
-            <li>
-              <Link to='/home'>
-                <Formbutton/>
-              </Link>
-            </li>
-          </ul>
-          <br/>
           {this.state.cards.map((card, id) => { 
-              return (<div key={id}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+              return (<div key={id} onClick = {this.editCard.bind(this,card)}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
                         <div className="custom-card">
-                          <h3>{card}</h3>
+                          <h3>{card.companyName}</h3>
+                          <text>{card.designation}</text>
+                          <p>{card.details}</p><text>{card.yearsExp}</text>
+                          <p></p>
                         </div>
                       </Card></div>)
-            })}
+            },this)}
           <Button type="primary" size={this.state.size} onClick={this.formToggle}> Add </Button>
         </div>
         <div className="sliderform">
-          <Siderbar collapsed={this.state.collapsed} />
+          <Siderbar collapsed={this.state.collapsed} generateCard = {this.populateCard} editJob = {this.state.editing} editJobObj = {this.state.editCardObj}/>
         </div>
       </div>
     )
