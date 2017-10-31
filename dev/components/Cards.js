@@ -25,9 +25,11 @@ export default class Cards extends React.Component {
       collapsed: false
     };
     this.state.duplicateCards = this.state.cards;
-    this.formToggle = this.formToggle.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.populateCard = this.populateCard.bind(this);
+    //Specify the event inside array
+    let eventArray = ["formToggle", "onChange", "populateCard"];
+    for (var i=0;i<eventArray.length;i++) {
+      this[eventArray[i]] = this[eventArray[i]].bind(this);
+    }
   }
 
   getCards() {

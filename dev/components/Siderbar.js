@@ -16,11 +16,11 @@ class SiderBar extends React.Component {
         details: '',
         yearsExp: 3
       };
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.onChangeCompanyName = this.onChangeCompanyName.bind(this);
-      this.onDesignationChange = this.onDesignationChange.bind(this);
-      this.onDetailsUpdate = this.onDetailsUpdate.bind(this);
-      this.onExpChange = this.onExpChange.bind(this);
+      //Specify the event inside array
+      let eventArray = ["handleSubmit", "onChangeCompanyName", "onDesignationChange", "onDetailsUpdate", "onExpChange"];
+      for (var i=0;i<eventArray.length;i++) {
+        this[eventArray[i]] = this[eventArray[i]].bind(this);
+      }
     }
 
     onChangeCompanyName(e) {
