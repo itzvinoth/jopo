@@ -53,9 +53,9 @@ export default class Cards extends React.Component {
   populateCard(obj) {
     var arr = this.state.cards;
     if(this.state.editing == true){
-      arr.map(function(data,i){
-        if(data.jobId == obj.jobId){
-          arr[i] = obj;
+      _.each(arr, function(data, index) {
+        if (data.jobId == obj.jobId) {
+          arr[index] = obj;
         }
       });
     }
