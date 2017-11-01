@@ -43,7 +43,7 @@ export default class Cards extends React.Component {
         //Temporarily commenting because of the long list of cards....
         // self.setState({ cards : cards });
         self.setState({ cards : [{jobId:0,companyName:"VBI", designation:"Frontend Developer", details:"Strong skillset", yearsExp:3},
-          {jobId:0,companyName:"Dell", designation:"Frontend Developer", details:"Strong skillset", yearsExp:6}] });
+          {jobId:1,companyName:"Dell", designation:"Frontend Developer", details:"Strong skillset", yearsExp:6}] });
       }
     });
   }
@@ -52,7 +52,16 @@ export default class Cards extends React.Component {
 
   populateCard(obj) {
     var arr = this.state.cards;
-    arr.push(obj);
+    if(this.state.editing == true){
+      arr.map(function(data,i){
+        if(data.jobId == obj.jobId){
+          arr[i] = obj;
+        }
+      });
+    }
+    else {
+      arr.push(obj);
+    }
     this.setState({cards:arr, editing:false});
   }
 

@@ -60,6 +60,7 @@ app.get("/api/usersdel", (req, res) => {
 
 app.post("/api/jobpost", (req, res) => {
     const doc = new Jobs({ 
+        _id: new mongoose.Types.ObjectId,
         companyName: req.body.companyName,
         designation: req.body.designation,
         details: req.body.details,
@@ -72,6 +73,31 @@ app.post("/api/jobpost", (req, res) => {
             });
         } else {
             res.send({ 
+                jobId:user._id,
+                companyName: req.body.companyName,
+                designation: req.body.designation,
+                details: req.body.details,
+                yearsExp: req.body.yearsExp });
+            }
+    });
+});
+
+app.put("/api/updatejob", (req, res) => {
+    const doc = { 
+        _id: req.body.jobId,
+        companyName: req.body.companyName,
+        designation: req.body.designation,
+        details: req.body.details,
+        yearsExp: req.body.yearsExp 
+    };
+    Jobs.update({_id: req.body.jobId}, doc,function(err, user) {
+        if (err) {
+            res.status(503).send({
+               message: "Couldn't save to server."
+            });
+        } else {
+            res.send({ 
+                jobId:req.body.jobId,
                 companyName: req.body.companyName,
                 designation: req.body.designation,
                 details: req.body.details,

@@ -11,6 +11,7 @@ class SiderBar extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
+        jobId:'',
         companyName: '',
         designation: '',
         details: '',
@@ -49,28 +50,41 @@ class SiderBar extends React.Component {
 
     handleSubmit() {
       this.setState({
+        jobId : '',
         companyName: '',
         designation: '',
         details: '',
         yearsExp: 3
       });
+
       //Posting and input field value to api
       const data = {
+        jobId: (this.state.jobId ? this.state.jobId : ''),
         companyName: this.state.companyName,
         designation: this.state.designation,
         details: this.state.details,
         yearsExp: this.state.yearsExp
       };
 
-      this.props.generateCard(data);    // Callback Card.js populateCard() function 
+      if(data.jobId ){
+        request.put('/api/updatejob').set('Accept', 'application/json').send(data).end((err, res) => {
+          if (err || !res.ok) {
+              console.log('Oh no! err' + err);
+          } else {
+              this.props.generateCard(res.body);    // Callback Card.js populateCard() function 
+          }
+        });
+      }else{
+        request.post('/api/jobpost').set('Accept', 'application/json').send(data).end((err, res) => {
+          if (err || !res.ok) {
+              console.log('Oh no! err' + err);
+          } else {
+              this.props.generateCard(res.body);    // Callback Card.js populateCard() function 
+          }
+        });
+      }
+      
 
-      request.post('/api/jobpost').set('Accept', 'application/json').send(data).end((err, res) => {
-        if (err || !res.ok) {
-            console.log('Oh no! err' + err);
-        } else {
-            console.log('Success');
-        }
-      });
     }
 
     // Populate the card details in form to edit the details 
@@ -79,7 +93,7 @@ class SiderBar extends React.Component {
       const editingJob = newProps.editJob;
       const obj = newProps.editJobObj;
       if(editingJob && obj != this.state){
-        this.setState({companyName:obj.companyName, designation: obj.designation, details: obj.details, yearsExp: obj.yearsExp});
+        this.setState({jobId:obj.jobId, companyName:obj.companyName, designation: obj.designation, details: obj.details, yearsExp: obj.yearsExp});
       }
     }
 
