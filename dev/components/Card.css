@@ -64,3 +64,14 @@ ul#horizontal-list li {
 .loginDiv {
   margin: 100px;
 }
+
+.jobSelection {
+  margin: 5px 5px 5px 5px;
+}
+
+.loginIcon{
+  float:right;
+  font-size:20px ;
+  color:white;
+  margin-top:15px;
+}

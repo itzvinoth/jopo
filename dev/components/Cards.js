@@ -91,15 +91,10 @@ export default class Cards extends React.Component {
       collapsed: !prevState.collapsed
     }));
   }
-  
+
   render() {
     return ( 
       <div className="main">
-        <div className="header">
-          <Link to='/signin'>
-            <Loginbutton/>
-          </Link>
-        </div>
         <div className="cards">
           {this.state.cards.map((card, id) => { 
               return (<div key={id} onClick = {this.editCard.bind(this,card)}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
@@ -111,7 +106,7 @@ export default class Cards extends React.Component {
                         </div>
                       </Card></div>)
             },this)}
-          <Button type="primary" size={this.state.size} onClick={this.formToggle}> Add </Button>
+          <Button type="primary" size={this.state.size} onClick = {this.formToggle}> Add </Button>
         </div>
         <div className="sliderform">
           <Siderbar collapsed={this.state.collapsed} generateCard = {this.populateCard} editJob = {this.state.editing} editJobObj = {this.state.editCardObj}/>
