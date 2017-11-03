@@ -1,18 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import request from 'superagent';
 import { Form, Select, Button, Input, Icon, Checkbox } from 'antd';
 import '../components/Card.css';
+import bcrypt from 'bcrypt-nodejs';
 
 const FormItem = Form.Item;
 class NormalLoginForm extends React.Component {
+  constructor(props) {
+	super(props);
+	this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+      	bcrypt.hash(values.password, null, null, function(err, hash) {
+      		// console.log(hash);
+		});
+        // console.log('Received values of form: ', values.userName);
       }
     });
   }
+
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
@@ -45,7 +56,9 @@ class NormalLoginForm extends React.Component {
 	          <Button type="primary" htmlType="submit" className="login-form-button">
 	            Log in
 	          </Button>
-	          Or <a href="">register now!</a>
+	          Or <Link to='/signup'>
+	            register now!
+	          </Link>
 	        </FormItem>
 	      </Form>
       </div>

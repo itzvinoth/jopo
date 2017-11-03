@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon } from 'antd';
 import Loginbutton from '../subcomponents/Loginbutton';
+import Registerbutton from '../subcomponents/Registerbutton';
 import Clearbutton from '../subcomponents/Clearbutton';
 import Siderbar from './Siderbar';
 import request from 'superagent';
@@ -96,9 +97,18 @@ export default class Cards extends React.Component {
     return ( 
       <div className="main">
         <div className="header">
-          <Link to='/signin'>
-            <Loginbutton/>
-          </Link>
+          <ul id="horizontal-list">
+            <li>
+              <Link to='/signin'>
+                <Loginbutton/>
+              </Link>
+            </li>
+            <li>
+              <Link to='/signup'>
+                <Registerbutton/>
+              </Link>
+            </li>
+          </ul>
         </div>
         <div className="cards">
           {this.state.cards.map((card, id) => { 
