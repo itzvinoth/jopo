@@ -17659,9 +17659,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _button = __webpack_require__(46);
+var _row = __webpack_require__(593);
 
-var _button2 = _interopRequireDefault(_button);
+var _row2 = _interopRequireDefault(_row);
+
+var _col = __webpack_require__(594);
+
+var _col2 = _interopRequireDefault(_col);
 
 var _card = __webpack_require__(396);
 
@@ -17673,7 +17677,9 @@ var _radio2 = _interopRequireDefault(_radio);
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-__webpack_require__(52);
+__webpack_require__(595);
+
+__webpack_require__(596);
 
 __webpack_require__(425);
 
@@ -17767,15 +17773,16 @@ var Cards = function (_React$Component) {
     value: function populateCard(obj) {
       var arr = this.state.cards;
       if (this.state.editing == true) {
-        arr.map(function (data, i) {
+        _underscore2.default.each(arr, function (data, index) {
           if (data.jobId == obj.jobId) {
-            arr[i] = obj;
+            arr[index] = obj;
           }
         });
       } else {
         arr.push(obj);
       }
-      this.setState({ cards: arr, editing: false });
+      this.setState({ cards: arr, editing: false }); // Update the cards arr
+      this.formToggle(); // To Close the job post form
     }
 
     // Edit Card 
@@ -17792,7 +17799,20 @@ var Cards = function (_React$Component) {
       // We can't directly use setState in here.
       //requesting data from the api
       this.getCards();
-      this.formToggle();
+      // this.formToggle();
+    }
+
+    // When the user click post button
+
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      console.log(newProps, newProps.addJob);
+      if (newProps.addjob == true) {
+
+        console.log("form");
+        this.formToggle();
+      }
     }
   }, {
     key: 'onChange',
@@ -17807,6 +17827,7 @@ var Cards = function (_React$Component) {
   }, {
     key: 'formToggle',
     value: function formToggle() {
+      console.log("form");
       this.setState(function (prevState) {
         return {
           collapsed: !prevState.collapsed
@@ -17820,55 +17841,58 @@ var Cards = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'main' },
+        null,
         _react2.default.createElement(
           'div',
-          { className: 'cards' },
-          this.state.cards.map(function (card, id) {
-            return _react2.default.createElement(
-              'div',
-              { key: id, onClick: _this2.editCard.bind(_this2, card) },
-              _react2.default.createElement(
-                _card2.default,
-                { style: { width: 240 }, bodyStyle: { padding: 0 } },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'custom-card' },
-                  _react2.default.createElement(
-                    'h3',
-                    null,
-                    card.companyName
-                  ),
-                  _react2.default.createElement(
-                    'text',
-                    null,
-                    card.designation
-                  ),
-                  _react2.default.createElement(
-                    'p',
-                    null,
-                    card.details
-                  ),
-                  _react2.default.createElement(
-                    'text',
-                    null,
-                    card.yearsExp
-                  ),
-                  _react2.default.createElement('p', null)
-                )
-              )
-            );
-          }, this),
-          _react2.default.createElement(
-            _button2.default,
-            { type: 'primary', size: this.state.size, onClick: this.formToggle },
-            ' Add '
-          )
+          null,
+          _react2.default.createElement(_Siderbar2.default, { collapsed: this.state.collapsed, generateCard: this.populateCard, editJob: this.state.editing, editJobObj: this.state.editCardObj })
         ),
         _react2.default.createElement(
           'div',
-          { className: 'sliderform' },
-          _react2.default.createElement(_Siderbar2.default, { collapsed: this.state.collapsed, generateCard: this.populateCard, editJob: this.state.editing, editJobObj: this.state.editCardObj })
+          null,
+          _react2.default.createElement(
+            _row2.default,
+            { gutter: 16 },
+            this.state.cards.map(function (card, id) {
+              return _react2.default.createElement(
+                _col2.default,
+                { key: id, className: 'gutter-row', span: 5 },
+                _react2.default.createElement(
+                  'div',
+                  { key: id, onClick: _this2.editCard.bind(_this2, card) },
+                  _react2.default.createElement(
+                    _card2.default,
+                    { onClick: _this2.formToggle, style: { minHeight: 100 }, bodyStyle: { padding: 0 } },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'custom-card' },
+                      _react2.default.createElement(
+                        'h3',
+                        null,
+                        card.companyName
+                      ),
+                      _react2.default.createElement(
+                        'text',
+                        null,
+                        card.designation
+                      ),
+                      _react2.default.createElement(
+                        'p',
+                        { className: 'displayDetails' },
+                        card.details
+                      ),
+                      _react2.default.createElement(
+                        'text',
+                        null,
+                        card.yearsExp
+                      ),
+                      _react2.default.createElement('p', null)
+                    )
+                  )
+                )
+              );
+            }, this)
+          )
         )
       );
     }
@@ -39856,7 +39880,7 @@ var SiderBar = function (_React$Component) {
 
       return _react2.default.createElement(
         _form2.default,
-        null,
+        { className: 'sliderform' },
         _react2.default.createElement(
           FormItem,
           { label: 'Company Name', labelCol: { span: 12 }, wrapperCol: { span: 8 } },
@@ -52902,7 +52926,7 @@ exports = module.exports = __webpack_require__(21)(undefined);
 exports.i(__webpack_require__(581), "");
 
 // module
-exports.push([module.i, ".custom-card {\r\n  padding: 10px 16px;\r\n}\r\n.custom-card p {\r\n  color: #999;\r\n}\r\n.anticon-close-circle {\r\n  cursor: pointer;\r\n  color: #ccc;\r\n  transition: color 0.3s;\r\n  font-size: 12px;\r\n}\r\n.anticon-close-circle:hover {\r\n  color: #999;\r\n}\r\n.anticon-close-circle:active {\r\n  color: #666;\r\n}\r\n.example-input .ant-input {\r\n  width: 200px;\r\n  margin: 0 8px 8px 0;\r\n}\r\n.example-input {\r\n  text-align: center;\r\n}\r\nul#horizontal-list {\r\n  min-width: 696px;\r\n  list-style: none;\r\n  padding-top: 20px;\r\n}\r\nul#horizontal-list li {\r\n  display: inline;\r\n  padding-left: 40px;\r\n}\r\n.main {\r\n  width: 1%;\r\n  display: inline-block;\r\n}\r\n.header {\r\n  margin: 30px;\r\n}\r\n.cards {\r\n  width:50%;\r\n  height:100%;\r\n  display: inline-block;\r\n}\r\n.sliderform {\r\n  width:50%;\r\n  height:100%;\r\n  display: inline-block;\r\n  background-color:#CCCCCC;\r\n  position:absolute;\r\n  margin-left: 50%;\r\n}\r\n.trigger {\r\n  font-size: 18px;\r\n  line-height: 64px;\r\n  padding: 0 16px;\r\n  cursor: pointer;\r\n  transition: color .3s;\r\n}\r\n.loginDiv {\r\n  margin: 100px;\r\n}\r\n\r\n.jobSelection {\r\n  margin: 5px 5px 5px 5px;\r\n}\r\n\r\n.loginIcon{\r\n  float:right;\r\n  font-size:20px ;\r\n  color:white;\r\n  margin-top:15px;\r\n}", ""]);
+exports.push([module.i, ".custom-card {\r\n  padding: 10px 16px;\r\n}\r\n.custom-card p {\r\n  color: #999;\r\n}\r\n.anticon-close-circle {\r\n  cursor: pointer;\r\n  color: #ccc;\r\n  transition: color 0.3s;\r\n  font-size: 12px;\r\n}\r\n.anticon-close-circle:hover {\r\n  color: #999;\r\n}\r\n.anticon-close-circle:active {\r\n  color: #666;\r\n}\r\n.example-input .ant-input {\r\n  width: 200px;\r\n  margin: 0 8px 8px 0;\r\n}\r\n.example-input {\r\n  text-align: center;\r\n}\r\nul#horizontal-list {\r\n  min-width: 696px;\r\n  list-style: none;\r\n  padding-top: 20px;\r\n}\r\nul#horizontal-list li {\r\n  display: inline;\r\n  padding-left: 40px;\r\n}\r\n.main {\r\n  width: 1%;\r\n  display: inline-block;\r\n}\r\n.header {\r\n  margin: 30px;\r\n}\r\n.cards {\r\n  width:50%;\r\n  height:100%;\r\n  display: inline-block;\r\n}\r\n.sliderform {\r\n  /*width:50%;\r\n  height:100%;\r\n  display: inline-block;*/\r\n  background-color:#CCCCCC;\r\n  /*position:absolute;\r\n  margin-left: 50%;*/\r\n}\r\n.trigger {\r\n  font-size: 18px;\r\n  line-height: 64px;\r\n  padding: 0 16px;\r\n  cursor: pointer;\r\n  transition: color .3s;\r\n}\r\n.loginDiv {\r\n  margin: 100px;\r\n}\r\n\r\n.jobSelection {\r\n  margin: 5px 5px 5px 5px;\r\n}\r\n\r\n.loginIcon{\r\n  float:right;\r\n  font-size:20px ;\r\n  color:white;\r\n  margin-top:15px;\r\n}\r\n\r\n.displayDetails{\r\n  overflow: hidden;\r\n}", ""]);
 
 // exports
 
@@ -54491,6 +54515,10 @@ var _row = __webpack_require__(593);
 
 var _row2 = _interopRequireDefault(_row);
 
+var _button = __webpack_require__(46);
+
+var _button2 = _interopRequireDefault(_button);
+
 var _avatar = __webpack_require__(605);
 
 var _avatar2 = _interopRequireDefault(_avatar);
@@ -54510,6 +54538,8 @@ var _layout2 = _interopRequireDefault(_layout);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 __webpack_require__(595);
+
+__webpack_require__(52);
 
 __webpack_require__(606);
 
@@ -54557,7 +54587,7 @@ var LayoutPage = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (LayoutPage.__proto__ || Object.getPrototypeOf(LayoutPage)).call(this));
 
-    _this.state = { name: "Not Changed" };
+    _this.state = { addJob: false };
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
@@ -54568,6 +54598,11 @@ var LayoutPage = function (_React$Component) {
       console.log("selected", value);
     }
   }, {
+    key: "postJob",
+    value: function postJob() {
+      this.setState({ addJob: true });
+    }
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -54575,10 +54610,10 @@ var LayoutPage = function (_React$Component) {
         { style: { height: "100%", width: "100%" } },
         _react2.default.createElement(
           _layout2.default,
-          { style: { height: "100%" } },
+          { style: { minHeight: "100%" } },
           _react2.default.createElement(
             Header,
-            { style: { position: 'fixed', width: '100%', zIndex: 1000 } },
+            { style: { position: 'fixed', width: '100%', zIndex: 1000, background: "#3d3a71" } },
             _react2.default.createElement(
               _row2.default,
               { gutter: 16 },
@@ -54593,7 +54628,7 @@ var LayoutPage = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _col2.default,
-                { className: "gutter-row loginIcon", span: 2 },
+                { className: "gutter-row loginIcon", span: 1 },
                 _react2.default.createElement(
                   _reactRouterDom.Link,
                   { to: "/signin" },
@@ -54602,7 +54637,7 @@ var LayoutPage = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _col2.default,
-                { className: "gutter-row", span: 6 },
+                { className: "gutter-row", span: 4 },
                 _react2.default.createElement(
                   _select2.default,
                   { className: "jobSelection",
@@ -54623,7 +54658,7 @@ var LayoutPage = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _col2.default,
-                { className: "gutter-row", span: 6 },
+                { className: "gutter-row", span: 4 },
                 _react2.default.createElement(
                   _select2.default,
                   { className: "jobSelection",
@@ -54683,17 +54718,26 @@ var LayoutPage = function (_React$Component) {
                     "Europe"
                   )
                 )
+              ),
+              _react2.default.createElement(
+                _col2.default,
+                { className: "gutter-row", span: 2, offset: 2 },
+                _react2.default.createElement(
+                  _button2.default,
+                  { onClick: this.postJob.bind(this) },
+                  "Post Job"
+                )
               )
             )
           ),
           _react2.default.createElement(
             Content,
-            { style: { marginTop: 64 } },
+            { style: { marginTop: 64, padding: 20, background: " #e2dada" } },
             _react2.default.createElement(
               "div",
-              { style: { background: '#fff' } },
+              null,
               "  ",
-              _react2.default.createElement(_Cards2.default, null),
+              _react2.default.createElement(_Cards2.default, { addjob: this.state.addJob }),
               " "
             )
           )

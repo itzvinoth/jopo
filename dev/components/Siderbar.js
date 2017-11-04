@@ -104,7 +104,7 @@ class SiderBar extends React.Component {
       }
 
       return (
-          <Form>
+          <Form  className="sliderform">
                 <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
                   <Input placeholder="Enter your company name" value={this.state.companyName} onChange={this.onChangeCompanyName}/>
                 </FormItem>

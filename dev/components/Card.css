@@ -47,12 +47,12 @@ ul#horizontal-list li {
   display: inline-block;
 }
 .sliderform {
-  width:50%;
+  /*width:50%;
   height:100%;
-  display: inline-block;
+  display: inline-block;*/
   background-color:#CCCCCC;
-  position:absolute;
-  margin-left: 50%;
+  /*position:absolute;
+  margin-left: 50%;*/
 }
 .trigger {
   font-size: 18px;
@@ -74,4 +74,8 @@ ul#horizontal-list li {
   font-size:20px ;
   color:white;
   margin-top:15px;
+}
+
+.displayDetails{
+  overflow: hidden;
 }
