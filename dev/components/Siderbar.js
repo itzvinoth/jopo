@@ -104,14 +104,14 @@ class SiderBar extends React.Component {
       }
 
       return (
-          <Form>
+          <Form  className="sliderform">
                 <FormItem label="Company Name" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
                   <Input placeholder="Enter your company name" value={this.state.companyName} onChange={this.onChangeCompanyName}/>
                 </FormItem>
                 <FormItem label="Designation" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>
                   <Select placeholder="Please select the designation" value={this.state.designation} onChange={this.onDesignationChange}>
-                    <Option value="frontend">Frontend Developer</Option>
-                    <Option value="backend">Backend Developer</Option>
+                    <Option value="Frontend Develope">Frontend Developer</Option>
+                    <Option value="Backend Developer">Backend Developer</Option>
                   </Select>
                 </FormItem>
                 <FormItem label="Job Details" labelCol={{ span: 12 }} wrapperCol={{ span: 8 }}>

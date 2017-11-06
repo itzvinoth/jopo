@@ -47,12 +47,12 @@ ul#horizontal-list li {
   display: inline-block;
 }
 .sliderform {
-  width:50%;
+  /*width:50%;
   height:100%;
-  display: inline-block;
+  display: inline-block;*/
   background-color:#CCCCCC;
-  position:absolute;
-  margin-left: 50%;
+  /*position:absolute;
+  margin-left: 50%;*/
 }
 .trigger {
   font-size: 18px;
@@ -62,5 +62,30 @@ ul#horizontal-list li {
   transition: color .3s;
 }
 .loginDiv {
-  margin: 100px;
+  margin: 30px;
+}
+
+.jobSelection {
+  margin: 5px 5px 5px 5px;
+}
+
+.loginIcon{
+  float:right;
+  font-size:20px ;
+  color:white;
+  margin-top:15px;
+}
+
+.displayDetails{
+  overflow: hidden;
+}
+.loginPage{
+  width:35%;
+  box-shadow: 10px 10px 5px #888888;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }

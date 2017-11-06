@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Radio, Button, Icon } from 'antd';
-import Loginbutton from '../subcomponents/Loginbutton';
-import Registerbutton from '../subcomponents/Registerbutton';
+import { Card, Radio, Button, Icon, Row, Col } from 'antd';
 import Clearbutton from '../subcomponents/Clearbutton';
 import Siderbar from './Siderbar';
 import request from 'superagent';
@@ -63,7 +61,8 @@ export default class Cards extends React.Component {
     else {
       arr.push(obj);
     }
-    this.setState({cards:arr, editing:false});
+    this.setState({cards:arr, editing:false});  // Update the cards arr
+    this.formToggle();    // To Close the job post form
   }
 
   // Edit Card 
@@ -77,7 +76,17 @@ export default class Cards extends React.Component {
     // We can't directly use setState in here.
     //requesting data from the api
     this.getCards();
-    this.formToggle();
+   // this.formToggle();
+  }
+
+  // When the user click post button
+  componentWillReceiveProps(newProps){
+    console.log(newProps,newProps.addJob)
+     if(newProps.addjob == true){
+
+      console.log("form")
+      this.formToggle();
+     }
   }
 
   onChange(e) {
@@ -88,43 +97,31 @@ export default class Cards extends React.Component {
   }
 
   formToggle() {
+    console.log("form")
     this.setState(prevState => ({
       collapsed: !prevState.collapsed
     }));
   }
-  
+
   render() {
     return ( 
-      <div className="main">
-        <div className="header">
-          <ul id="horizontal-list">
-            <li>
-              <Link to='/signin'>
-                <Loginbutton/>
-              </Link>
-            </li>
-            <li>
-              <Link to='/signup'>
-                <Registerbutton/>
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="cards">
-          {this.state.cards.map((card, id) => { 
-              return (<div key={id} onClick = {this.editCard.bind(this,card)}><Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-                        <div className="custom-card">
-                          <h3>{card.companyName}</h3>
-                          <text>{card.designation}</text>
-                          <p>{card.details}</p><text>{card.yearsExp}</text>
-                          <p></p>
-                        </div>
-                      </Card></div>)
-            },this)}
-          <Button type="primary" size={this.state.size} onClick={this.formToggle}> Add </Button>
-        </div>
-        <div className="sliderform">
+      <div>
+        <div>
           <Siderbar collapsed={this.state.collapsed} generateCard = {this.populateCard} editJob = {this.state.editing} editJobObj = {this.state.editCardObj}/>
+        </div>
+        <div>
+          <Row gutter={16}>
+            {this.state.cards.map((card, id) => { 
+                return (<Col  key={id} className="gutter-row" span={5}><div key={id} onClick = {this.editCard.bind(this,card)}><Card onClick={this.formToggle} style={{minHeight: 100}} bodyStyle={{ padding: 0 }}>
+                          <div className="custom-card">
+                            <h3>{card.companyName}</h3>
+                            <text>{card.designation}</text>
+                            <p className ="displayDetails">{card.details}</p><text>{card.yearsExp}</text>
+                            <p></p>
+                          </div>
+                        </Card></div></Col>)
+              },this)}
+            </Row>          
         </div>
       </div>
     )
