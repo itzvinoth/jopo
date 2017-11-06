@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Loginbutton from '../subcomponents/Loginbutton';
+import Registerbutton from '../subcomponents/Registerbutton';
 import { Layout, Menu, Breadcrumb, Select, Avatar , Row, Col, Button} from 'antd';
 import './Card.css';
 import Cards from "./Cards";

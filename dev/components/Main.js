@@ -6,6 +6,7 @@ import Cards from "./Cards";
 import LayoutPage from "./LayoutPage";
 import Home from "../pages/Home";
 import LoginForm from "../pages/LoginForm";
+import RegisterForm from "../pages/RegisterForm";
 import Post from "../pages/Post";
 
 const Main = () => (
@@ -13,6 +14,7 @@ const Main = () => (
 		<Route exact path="/" component={LayoutPage}></Route>
 		<Route path="/home" component={Home}></Route>
 		<Route path="/signin" component={LoginForm}></Route>
+		<Route path="/signup" component={RegisterForm}></Route>
 		<Route path="/post" component={Post}></Route>
 	</Switch>
 );

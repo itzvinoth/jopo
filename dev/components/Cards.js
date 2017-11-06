@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Radio, Button, Icon, Row, Col } from 'antd';
-import Loginbutton from '../subcomponents/Loginbutton';
 import Clearbutton from '../subcomponents/Clearbutton';
 import Siderbar from './Siderbar';
 import request from 'superagent';

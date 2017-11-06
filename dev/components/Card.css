@@ -62,7 +62,7 @@ ul#horizontal-list li {
   transition: color .3s;
 }
 .loginDiv {
-  margin: 100px;
+  margin: 30px;
 }
 
 .jobSelection {
@@ -78,4 +78,14 @@ ul#horizontal-list li {
 
 .displayDetails{
   overflow: hidden;
+}
+.loginPage{
+  width:35%;
+  box-shadow: 10px 10px 5px #888888;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
